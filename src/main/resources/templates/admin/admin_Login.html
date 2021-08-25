@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>欢迎登录</title>
+    <!--  导入头部文件-->
+    <th:block th:replace="common/admin/commons::head_css"/>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    </br>
+    </br>
+    </br>
+
+    <form class="form-signin" action="/admin/login">
+        <h2 class="form-signin-heading">欢迎管理员登录</h2>
+        <label for="inputEmail" class="sr-only">账号</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> 记住我
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+
+</div> <!-- /container -->
+
+<!--引入js文件-->
+<div th:replace="common/admin/commons::footJs"></div>
+
+
+</body>
+</html>
