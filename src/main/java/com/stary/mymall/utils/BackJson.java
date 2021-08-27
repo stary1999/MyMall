@@ -14,7 +14,7 @@ import java.util.Map;
  * @description
  * @create 2021/8/25-9:29
  */
-public class backJson {
+public class BackJson {
 
 
     public static void backJson(HttpServletResponse response, Map map) throws IOException {

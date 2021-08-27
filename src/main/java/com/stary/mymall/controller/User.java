@@ -1,11 +1,9 @@
 package com.stary.mymall.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.stary.mymall.pojo.Person;
-import com.stary.mymall.utils.backJson;
+import com.stary.mymall.utils.BackJson;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -50,7 +48,7 @@ public class User {
         map.put("phone","1223456");
         map.put("status","ok");
         System.out.println("map");
-        backJson.backJson(response,map);
+        BackJson.backJson(response,map);
 
         //
     }
