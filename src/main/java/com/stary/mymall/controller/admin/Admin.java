@@ -41,61 +41,66 @@ public class Admin {
                               ModelAndView modelAndView) throws IOException {
 
 
-        //验证cookie todo
-        //如果存在cookie，表示已经登录了。直接返回页面到首页。
-        Cookie[] cookies = httpRequest.getCookies();
-        if (cookies!=null){
-            Map map=new HashMap();
 
-            for (Cookie cookie : cookies) {
-                String name = cookie.getName();
-                String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                map.put(name, value);
-            }
-            modelAndView.addObject("CookiesMap",map);
-            modelAndView.addObject("loginBoolean","true");
-            modelAndView.setViewName("admin/admin_Index");
-            return modelAndView;
-        }
-        //判断是否登录
-        //TODO
-
-
-        System.out.println("userName="+username);
-        System.out.println("password="+password);
-        System.out.println("remember="+remember);
-
-        //todo 验证账号密码
-        if(username.equals("aa@aa.aa")&&password.equals("aa") ){
-            modelAndView.addObject("adminId","001");
-            modelAndView.addObject("adminName",username);
-
-            if(remember.equals("remember-me")){
-                //todo 生成cookie
-                //创建登录用户名Cookie
-                Cookie cook_name=new Cookie("username",username);
-                //创建登录用户密码Cookie
-                Cookie cook_pwd=new Cookie("password",password);
-                //设置过期时间为10秒
-                cook_name.setMaxAge(60*60*24);
-                cook_pwd.setMaxAge(60*60*24);
-                //将Cookie写入客户端
-                httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
-                httpResponse.addCookie(cook_name);
-                httpResponse.addCookie(cook_pwd);
-
-            }
-
-            modelAndView.setViewName("admin/admin_Index");
-            return modelAndView;
-        }
-        else {
-            modelAndView.addObject("msg","账号或密码错误，请重试");
-
-            modelAndView.setViewName("forward:/admin");
-
-            return modelAndView;
-        }
+        modelAndView.setViewName("admin/admin_Index");
+        return modelAndView;
+//
+//
+//        //验证cookie todo
+//        //如果存在cookie，表示已经登录了。直接返回页面到首页。
+//        Cookie[] cookies = httpRequest.getCookies();
+//        if (cookies!=null){
+//            Map map=new HashMap();
+//
+//            for (Cookie cookie : cookies) {
+//                String name = cookie.getName();
+//                String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
+//                map.put(name, value);
+//            }
+//            modelAndView.addObject("CookiesMap",map);
+//            modelAndView.addObject("loginBoolean","true");
+//            modelAndView.setViewName("admin/admin_Index");
+//            return modelAndView;
+//        }
+//        //判断是否登录
+//        //TODO
+//
+//
+//        System.out.println("userName="+username);
+//        System.out.println("password="+password);
+//        System.out.println("remember="+remember);
+//
+//        //todo 验证账号密码
+//        if(username.equals("aa@aa.aa")&&password.equals("aa") ){
+//            modelAndView.addObject("adminId","001");
+//            modelAndView.addObject("adminName",username);
+//
+//            if(remember.equals("remember-me")){
+//                //todo 生成cookie
+//                //创建登录用户名Cookie
+//                Cookie cook_name=new Cookie("username",username);
+//                //创建登录用户密码Cookie
+//                Cookie cook_pwd=new Cookie("password",password);
+//                //设置过期时间为10秒
+//                cook_name.setMaxAge(60*60*24);
+//                cook_pwd.setMaxAge(60*60*24);
+//                //将Cookie写入客户端
+//                httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+//                httpResponse.addCookie(cook_name);
+//                httpResponse.addCookie(cook_pwd);
+//
+//            }
+//
+//            modelAndView.setViewName("admin/admin_Index");
+//            return modelAndView;
+//        }
+//        else {
+//            modelAndView.addObject("msg","账号或密码错误，请重试");
+//
+//            modelAndView.setViewName("forward:/admin");
+//
+//            return modelAndView;
+//        }
 
 
     }

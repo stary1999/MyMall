@@ -3,116 +3,16 @@
 <head>
 
     <title>商城管理</title>
+    <meta charset="UTF-8">
     <!--  导入头部文件-->
     <th:block th:replace="common/admin/commons::head_css"/>
-    <script src="jquery.jqGrid.min.js"></script>
 
     <script type="text/javascript">
-
-
-        $(function () {
-            $("#jqGrid").jqGrid({
-                url: '/admin/getProducts',
-                datatype: "json",
-                colModel: [
-                    {label: '商品编号', name: 'productId', index: 'productId', width: 60, key: true},
-                    {label: '商品名', name: 'productName', index: 'productName', width: 120},
-                    // {label: '商品简介', name: 'goodsIntro', index: 'goodsIntro', width: 120},
-                    // {label: '商品图片', name: 'goodsCoverImg', index: 'goodsCoverImg', width: 120, formatter: coverImageFormatter},
-                    {label: '商品库存', name: 'productStock', index: 'productStock', width: 60},
-                    {label: '商品售价', name: 'productPrice', index: 'productPrice', width: 60},
-                    // {
-                    //   label: '上架状态',
-                    //   name: 'goodsSellStatus',
-                    //   index: 'goodsSellStatus',
-                    //   width: 80,
-                    //   formatter: goodsSellStatusFormatter
-                    // },
-                    // {label: '创建时间', name: 'createTime', index: 'createTime', width: 60}
-                ],
-                height: 760,
-                rowNum: 20,
-                rowList: [20, 50, 80],
-                styleUI: 'Bootstrap',
-                loadtext: '信息读取中...',
-                rownumbers: false,
-                rownumWidth: 20,
-                autowidth: true,
-                multiselect: true,
-                // pager: "#jqGridPager",
-                jsonReader: {
-                    root: "data.list",
-                    // page: "data.currPage",
-                    // total: "data.totalPage",
-                    // records: "data.totalCount"
-                },
-                // prmNames: {
-                //   page: "page",
-                //   rows: "limit",
-                //   order: "order",
-                // },
-                gridComplete: function () {
-                    //隐藏grid底部滚动条
-                    $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
-                }
-
-            });
-
-            $(window).resize(function () {
-                $("#jqGrid").setGridWidth($(".card-body").width());
-            });
-
-            // function goodsSellStatusFormatter(cellvalue) {
-            //   //商品上架状态 0-上架 1-下架
-            //   if (cellvalue == 0) {
-            //     return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 80%;\">销售中</button>";
-            //   }
-            //   if (cellvalue == 1) {
-            //     return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 80%;\">已下架</button>";
-            //   }
-            // }
-
-            // function coverImageFormatter(cellvalue) {
-            //   return "<img src='" + cellvalue + "' height=\"80\" width=\"80\" alt='商品主图'/>";
-            // }
-
-        });
-
-        /**
-         * jqGrid重新加载
-         */
-        function reload() {
-            initFlatPickr();
-            var page = $("#jqGrid").jqGrid('getGridParam', 'page');
-            $("#jqGrid").jqGrid('setGridParam', {
-                page: page
-            }).trigger("reloadGrid");
-        }
-
-        function al() {
-            window.location.href = "/admin/getProducts"
-            alert("data==" + data);
+        function deleteProduct(id) {
+            alert("quesshanchu");
         }
 
 
-        function addGoods() {
-            window.location.href = "/admin/goods/edit";
-        }
-
-    </script>
-
-    <script type="text/javascript">
-
-        function loadDoc() {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("demo").innerHTML = this.responseText;
-                }
-            };
-            xhttp.open("GET", "/admin/getProducts", true);
-            xhttp.send();
-        }
     </script>
 
 </head>
@@ -132,71 +32,72 @@
             <h1 class="page-header">产品管理</h1>
 
             <h2 class="sub-header">产品列表</h2>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
+                        <th>商品编号</th>
+                        <th>商品名称</th>
+                        <th>商品分类</th>
+                        <th>商品价格</th>
+                        <th>商品库存</th>
+                        <th>商品描述</th>
+                        <th>图片预览</th>
+                        <th>操作</th>
+
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    <tr>
-                        <td>1,002</td>
-                        <td>amet</td>
-                        <td>consectetur</td>
-                        <td>adipiscing</td>
-                        <td>elit</td>
-                    </tr>
+                    <tr th:each="product,productList:${pageInfo.records}">
+                        <td>[[${product.productId}]]</td>
+                        <td>[[${product.productName}]]</td>
+                        <td>[[${product.productSort}]]</td>
+                        <td>[[${product.productPrice}]]</td>
+                        <td>[[${product.productStock}]]</td>
+                        <td>暂无</td>
+                        <td>[[${product.productImgPath}]]</td>
+                        <th>
+                            <a th:href="'/admin/productsUpdata?id='+${product.productId}">修改</a> &nbsp;
+                            <a th:href="'/admin/productsDelete?id='+${product.productId}">删除</a>
+                        </th>
 
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <a href="/admin/productsAdd">新增商品</a>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="table-responsive">
-                <table id="jqGrid" class="table table-bordered">
-                </table>
+
             </div>
 
 
+            <nav aria-label="Page navigation" align="center">
+                <ul class="pagination ">
 
-            <div>
-                <button onclick="al()">按钮</button>
-            </div>
-            <p id="demo">000</p>
-            <div>
-                <button onclick="loadDoc()">按钮2号</button>
-            </div>
-
-
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
                     <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
+                        <a th:href="'/admin/productsManager?pn=1'">首页</a>
+                        <a th:href="'/admin/productsManager?pn='+${pageInfo.previous}" th:if="${pageInfo.isPrevious}">上一页</a>
+                        <a>当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页</a>
+                        <a th:href="'/admin/productsManager?pn='+${pageInfo.next}" th:if="${pageInfo.isNext}">下一页</a>
+                        <a th:href="'/admin/productsManager?pn='+${pageInfo.pages}">尾页</a>
                     </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+
+
                 </ul>
             </nav>
+
+
+            <!--            <div th:replace="common/admin/commons::page"></div>-->
 
 
         </div>

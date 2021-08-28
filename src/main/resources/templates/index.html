@@ -124,31 +124,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="modal-footer" align="center">
-
-<!--            <ul class="pagination" th:align="center">-->
-<!--                <li class="page-link" th:if="${pageInfo.hasPreviousPage}">-->
-<!--                    <a th:href="'/&pn=1'">首页</a>-->
-<!--                </li>-->
-<!--                <li class="page-link" th:if="${pageInfo.hasPreviousPage}">-->
-<!--                    <a th:href="'/&pn='+${pageInfo.prePage}">上一页</a>-->
-<!--                </li>-->
-<!--                <li class="page-link" th:each="nav:${pageInfo.navigatepageNums}">-->
-<!--                    <a th:href="'/&pn='+${nav}"-->
-<!--                       th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>-->
-<!--                    <span style="font-weight: bold;background: lightskyblue;" th:if="${nav == pageInfo.pageNum}"-->
-<!--                          th:text="${nav}"></span>-->
-<!--                </li>-->
-<!--                <li class="page-link" th:if="${pageInfo.hasNextPage}">-->
-<!--                    <a th:href="'/&pn='+${pageInfo.nextPage}">下一页</a>-->
-<!--                </li>-->
-<!--                <li class="page-link" th:if="${pageInfo.pageNum < pageInfo.pages}">-->
-<!--                    <a th:href="'/&pn='+${pageInfo.pages}">尾页</a>-->
-<!--                </li>-->
-            </ul>
-        </div>
-
-
 
 
         <nav aria-label="Page navigation" align="center">
@@ -156,44 +131,15 @@
 
                 <li>
                     <a th:href="'/?pn=1'">首页</a>
-<!--                    /?pn='+${pageInfo.current}-1-->
                     <a th:href="'/?pn='+${pageInfo.previous}" th:if="${pageInfo.isPrevious}">上一页</a>
-
-<!--                    <a th:href="" th:style="${pageInfo.current} gt 1?'':'display: none'">上一页</a>-->
-                    <a>当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页</a>
-<!--                    <a th:href="'/?pn='+${pageInfo.current}+1" th:if="${pageInfo.current} lt ${pageInfo.pages}">下一页</a>-->
-<!--&lt;!&ndash;                    <p class="pagination pagination-sm" > 当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页，[[${pageInfo.total}]] 条记录</p>&ndash;&gt;-->
-
+                   <a>当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页</a>
                     <a th:href="'/?pn='+${pageInfo.next}" th:if="${pageInfo.isNext}">下一页</a>
-
-<!--                    <a th:href="" th:style="${pageInfo.pages}-${pageInfo.current} gt 0 ?'':'display: none'">下一页</a>-->
                     <a th:href="'/?pn='+${pageInfo.pages}">尾页</a>
                 </li>
 
-<!--                <li th:if="${pageInfo.current} ne 1">-->
-<!--                    <a th:href="'/?&pn='+${pageInfo.current}-1" aria-label="上一页">-->
-<!--                        <span aria-hidden="true">&laquo;</span>-->
-<!--                    </a>-->
-<!--                </li>-->
-
-<!--                <li>-->
-<!--                    <a th:href="'/?&pn=' + ${i}"  th:each="i :${#numbers.sequence(pageInfo.current, pageInfo.current+2)}"-->
-<!--                       th:text="${i}"  th:class="${pageInfo.current == i}? 'curPage' :'' " th:if="${pageInfo.pages} ge ${i}"></a>-->
-<!--                </li>-->
-
-<!--                <li th:if="${pageInfo.current} ne ${pageInfo.pages}">-->
-<!--                    <a th:href="'/?&pn='+${pageInfo.current}+1" aria-label="下一页">-->
-<!--                        <span aria-hidden="true">&raquo;</span>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--                 <p class="pagination pagination-sm" > 第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页，[[${pageInfo.total}]] 条记录</p>-->
 
             </ul>
         </nav>
-
-
-
-
 
 
     </div>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>商城管理</title>
+    <!--  导入头部文件-->
+
+    <th:block th:replace="common/admin/commons::head_css"/>
+
+</head>
+
+<body>
+
+<!--引入导航栏-->
+<div th:replace="common/admin/commons::head"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--引入侧边栏-->
+        <div th:replace="common/admin/commons::sider"></div>
+
+
+            <h2 class="sub-header">添加商品</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>分类</th>
+                        <th>价格</th>
+                        <th>库存</th>
+                        <th>描述</th>
+                        <th>图片</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input name="productName" type="text" value="null"/></td>
+                        <td><input name="productSort" type="text"/></td>
+                        <td><input name="productPrice" type="text" /></td>
+                        <td><input name="productStock" type="text" /></td>
+                        <td><input name="productDescrip" type="text" /></td>
+                        <td><input name="productImgPath" type="text" /></td>
+
+                    </tr>
+
+                    <tr>
+                        <td><input name="productName" type="text" value="null"/></td>
+                        <td><input name="productSort" type="text" /></td>
+                        <td><input name="productPrice" type="text"/></td>
+                        <td><input name="productStock" type="text" /></td>
+                        <td><input name="productDescrip" type="text" /></td>
+                        <td><input name="productImgPath" type="text" /></td>
+
+                    </tr>
+                    <tr>
+                        <td><input name="productName" type="text" value="null"/></td>
+                        <td><input name="productSort" type="text" /></td>
+                        <td><input name="productPrice" type="text" /></td>
+                        <td><input name="productStock" type="text" /></td>
+                        <td><input name="productDescrip" type="text" /></td>
+                        <td><input name="productImgPath" type="text" /></td>
+
+                    </tr>
+                    <tr>
+                        <td><input name="productName" type="text" value="null"/></td>
+                        <td><input name="productSort" type="text"/></td>
+                        <td><input name="productPrice" type="text" /></td>
+                        <td><input name="productStock" type="text" /></td>
+                        <td><input name="productDescrip" type="text" /></td>
+                        <td><input name="productImgPath" type="text" /></td>
+
+                    </tr>
+                    <tr>
+                        <td><input name="productName" type="text" value="null"/></td>
+                        <td><input name="productSort" type="text" /></td>
+                        <td><input name="productPrice" type="text" /></td>
+                        <td><input name="productStock" type="text" /></td>
+                        <td><input name="productDescrip" type="text" /></td>
+                        <td><input name="productImgPath" type="text" /></td>
+
+                    </tr>
+                    <tr>
+                        <td><input name="productName" type="text" /></td>
+                        <td><input name="productSort" type="text" /></td>
+                        <td><input name="productPrice" type="text" /></td>
+                        <td><input name="productStock" type="text" /></td>
+                        <td><input name="productDescrip" type="text" /></td>
+                        <td><input name="productImgPath" type="text"/></td>
+
+                    </tr>
+
+                    <tr>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td><input type="submit" value="提交"/></td>
+                    </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        <form action="manager/bookServlet" method="get">
+            <input type="hidden" name="action" value="${param.method}"/>
+            <input type="hidden" name="id" value="${requestScope.book.id}">
+            <input type="hidden" name="pageNo" value="${param.pageNo}">
+
+        </form>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<!--引入js文件-->
+<div th:replace="common/admin/commons::footJs"></div>
+
+</body>
+</html>
