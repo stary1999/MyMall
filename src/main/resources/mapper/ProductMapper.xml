@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stary.mymall.mapper.ProductMapper">
 
+    <select id="queryAll" resultType="com.stary.mymall.entity.Product" >
+        SELECT * FROM product
+    </select>
+    <select id="queryById" resultType="com.stary.mymall.entity.Product" parameterType="integer">
+        SELECT * FROM product where product_id=#{id}
+    </select>
+    <select id="selectPageVo" resultType="com.stary.mymall.entity.Product">
+        SELECT * FROM product
+    </select>
+
 </mapper>

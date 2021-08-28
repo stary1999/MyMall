@@ -19,14 +19,8 @@ import java.util.Map;
  */
 
 @Controller
-public class User {
+public class UserController {
 
-    @RequestMapping("/")
-    public String index(){
-
-        //todo
-        return "index";
-    }
 
     @RequestMapping("/login")
     public String userLogin(){

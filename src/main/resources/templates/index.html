@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -76,61 +76,108 @@
         </div><!--/.container-fluid -->
     </nav>
 
-    <script type="text/javascript">
-        $(function() {      // 页面加载之后调用
-            $.ajax({
-                type: "get",    //请求方式为get，也可以是设置为post
-                url: "/admin/getProducts",     //所要获取的json文件相对地址，注意不要写错了，我这里放在同一个目录下的
-                async: true,　　　　　　　　//是否为异步请求，ture为异步请求，false为同步请求
-                success: function(data) {    //当请求之后调用。传入返回后的数据，以及包含成功代码的字符串
-                    alert(data);    //这里会弹出json文件中所有的字符串数据，如图3-1
-                    var data = eval("(" + data + ")");  // 将json字符串数据解析成对象
-                    alert(data)     //弹出： 如图3-2
-                    var str = "<span style='color:red;'>this is nav1</span>";
-                    var str1 = "<span style='color:red;'>this is nav2</span>";
-                    // var arr1 = data.list1;
-                    // var arr2 = d.list;
-                    if (data != null) {
-                        for (var i = 0; i < data.length; i++) {  //这里面都是创建li并赋值
-                            str = str + "<li><a href='http://www.baidu.com'>" + data[i].name + "</a></li>";
-                        }
-                        $("#nav1").html(str);
-                    }
-                }
-            });
-        });
-        function getMessage(){
-            $.ajax({
-                type: "get",    //请求方式为get，也可以是设置为post
-                url: "/admin/getProducts",     //所要获取的json文件相对地址，注意不要写错了，我这里放在同一个目录下的
-                async: true,　　　　　　　　//是否为异步请求，ture为异步请求，false为同步请求
-                success: function(data) {    //当请求之后调用。传入返回后的数据，以及包含成功代码的字符串
-                    alert(data);    //这里会弹出json文件中所有的字符串数据，如图3-1
 
-                }
-            });
+<!--    <script type="text/javascript">-->
+<!--        window.onload=function (){-->
+<!--            $.ajax({-->
+<!--                type: "get",    //请求方式为get，也可以是设置为post-->
+<!--                url: "/getIndex",     //所要获取的json文件相对地址，注意不要写错了，我这里放在同一个目录下的-->
+<!--                async: true,　　　　　　　　//是否为异步请求，ture为异步请求，false为同步请求-->
+<!--                success: function(data) {    //当请求之后调用。传入返回后的数据，以及包含成功代码的字符串-->
+<!--                    // alert(data);    //这里会弹出json文件中所有的字符串数据，如图3-1-->
 
-        }
-    </script>
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
+
 
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
 
 
-        <ul id="nav1" class="nav">
-<!--            // 用于存放第一个ul数据的，里面的li标签即数据都是js生成的。-->
-            <span style="color:red;">this is nav1</span>
-        </ul>
-        <button onclick="getMessage()">按钮</button>
+        <h2 class="sub-header">欢迎选购</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>商品名称</th>
+                    <th>商品分类</th>
+                    <th>商品价格</th>
+                    <th>商品库存</th>
+                    <th>商品描述</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                <tr th:each="product,productList:${pageInfo.records}">
+                    <td >[[${product.productName}]]</td>
+                    <td >[[${product.productSort}]]</td>
+                    <td >[[${product.productPrice}]]</td>
+                    <td >[[${product.productStock}]]</td>
+                    <td >[[${product.productId}]]</td>
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer" align="center">
+            <div class="col-md-6">
+                当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页，[[${pageInfo.total}]] 条记录
+            </div>
+<!--            <ul class="pagination" th:align="center">-->
+<!--                <li class="page-link" th:if="${pageInfo.hasPreviousPage}">-->
+<!--                    <a th:href="'/&pn=1'">首页</a>-->
+<!--                </li>-->
+<!--                <li class="page-link" th:if="${pageInfo.hasPreviousPage}">-->
+<!--                    <a th:href="'/&pn='+${pageInfo.prePage}">上一页</a>-->
+<!--                </li>-->
+<!--                <li class="page-link" th:each="nav:${pageInfo.navigatepageNums}">-->
+<!--                    <a th:href="'/&pn='+${nav}"-->
+<!--                       th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>-->
+<!--                    <span style="font-weight: bold;background: lightskyblue;" th:if="${nav == pageInfo.pageNum}"-->
+<!--                          th:text="${nav}"></span>-->
+<!--                </li>-->
+<!--                <li class="page-link" th:if="${pageInfo.hasNextPage}">-->
+<!--                    <a th:href="'/&pn='+${pageInfo.nextPage}">下一页</a>-->
+<!--                </li>-->
+<!--                <li class="page-link" th:if="${pageInfo.pageNum < pageInfo.pages}">-->
+<!--                    <a th:href="'/&pn='+${pageInfo.pages}">尾页</a>-->
+<!--                </li>-->
+            </ul>
+        </div>
 
 
 
 
-        <h1>Navbar example</h1>
-        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>
-            <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
+        <nav aria-label="Page navigation" align="center">
+            <ul class="pagination ">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+
+
+
+
     </div>
 
 </div> <!-- /container -->

@@ -1,5 +1,8 @@
 package com.stary.mymall.service;
 
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stary.mymall.entity.Product;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,5 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IProductService extends IService<Product> {
 
+    public IPage<Product> selectProductPage(Page<Product> page);
 
 }

@@ -107,6 +107,14 @@
 <!--            <version>latest-freemarker-version</version>-->
         </dependency>
 
+<!--        &lt;!&ndash;引入pageHelper分页插件 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.github.pagehelper</groupId>-->
+<!--            <artifactId>pagehelper</artifactId>-->
+<!--            <version>5.0.0</version>-->
+<!--        </dependency>-->
+
+
 
 
     </dependencies>

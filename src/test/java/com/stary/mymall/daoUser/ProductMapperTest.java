@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 /**
  * @author stary
  * @version 1.0
@@ -18,16 +20,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Slf4j
 @SpringBootTest
 public class ProductMapperTest {
-//    @Autowired
-//    ProductMapper productMapper;
-//
-//    @Test
-//    public void test(){
-//        Product product = productMapper.queryById(2);
-//        System.out.println("product==="+product);
+    @Autowired
+    ProductMapper productMapper;
 
-//        Cause: org.apache.ibatis.builder.BuilderException: Error resolving class.
-//        Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'Product'.
-//        Cause: java.lang.ClassNotFoundException: Cannot find class: Product
+    @Test
+    public void test() {
+        Product product = productMapper.queryById(2);
+        System.out.println("product===" + product);
+    }
+
+    @Test
+    public void MapperTest(){
+        List<Product> products = productMapper.queryAll();
+        for (Product p:products){
+            System.out.println(p);
+        }
+        Product product = productMapper.queryById(2);
+        System.out.println("prodect=="+product);
+    }
 
 }
