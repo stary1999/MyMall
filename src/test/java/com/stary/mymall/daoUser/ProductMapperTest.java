@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -37,6 +38,13 @@ public class ProductMapperTest {
         }
         Product product = productMapper.queryById(2);
         System.out.println("prodect=="+product);
+    }
+    @Test void addTest(){
+        BigDecimal price=new BigDecimal(50);
+        Product product=new Product(0,"茶壶","百货",price,
+                "来一杯tea吧",50,"null");
+        Integer integer = productMapper.addProduct(product);
+        System.out.println("inte========"+integer);
     }
 
 }

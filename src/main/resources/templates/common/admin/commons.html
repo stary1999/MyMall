@@ -99,9 +99,9 @@
 
                 <ul id="managerProduct">
                     <li><a href="/admin/productsManager">商品管理</a></li>
-                    <li><a>新增商品</a></li>
-                    <li><a>批量修改</a></li>
-                    <li><a>批量删除</a></li>
+                    <li><a href="/admin/productsAdd">新增商品</a></li>
+                    <li><a href="/admin/productsUpdate">批量修改</a></li>
+                    <li><a href="/admin/productsDelete">批量删除</a></li>
                 </ul>
 
             </li>
@@ -113,10 +113,11 @@
             <li>
                 <a onclick="displayOrHidel2()">订单管理</a>
                 <ul id="managerOrder">
-                    <a href="/admin/ordersManager">订单管理</a>
-                    <li><a>新增商品</a></li>
-                    <li><a>批量修改</a></li>
-                    <li><a>批量删除</a></li>
+                    <li><a href="/admin/ordersManager">订单管理</a></li>
+
+                    <li><a href="/admin/productsAdd">新增商品</a></li>
+                    <li><a href="/admin/productsUpdate">批量修改</a></li>
+                    <li><a href="/admin/productsDelete">批量删除</a></li>
                 </ul>
             </li>
         </ul>
@@ -125,7 +126,8 @@
             <li>
                 <a onclick="displayOrHidel3()">用户管理</a>
                 <ul id="managerUser">
-                    <a href="/admin/usersManager">用户管理</a>
+
+                    <li><a href="/admin/usersManager">用户管理</a></li>
 
                     <li><a>新增商品</a></li>
                     <li><a>批量修改</a></li>
@@ -137,7 +139,8 @@
             <li>
                 <a onclick="displayOrHidel4()">管理员管理</a>
                 <ul id="managerAdmin">
-                    <a href="/admin/adminsManager">管理员管理</a>
+                    <li> <a href="/admin/adminsManager">管理员管理</a></li>
+
                     <li><a>新增商品</a></li>
                     <li><a>批量修改</a></li>
                     <li><a>批量删除</a></li>
@@ -145,87 +148,87 @@
             </li>
         </ul>
 
-        <style type="text/css">
-            ul {
-                list-style-type: none
-            }
+<!--        <style type="text/css">-->
+<!--            ul {-->
+<!--                list-style-type: none-->
+<!--            }-->
 
-            #managerProduct {
-                display: none
-            }
+<!--            #managerProduct {-->
+<!--                display: none-->
+<!--            }-->
 
-            #managerOrder {
-                display: none
-            }
+<!--            #managerOrder {-->
+<!--                display: none-->
+<!--            }-->
 
-            #managerUser {
-                display: none
-            }
+<!--            #managerUser {-->
+<!--                display: none-->
+<!--            }-->
 
-            #managerAdmin {
-                display: none
-            }
-        </style>
-        <script>
-            var hide = true;
+<!--            #managerAdmin {-->
+<!--                display: none-->
+<!--            }-->
+<!--        </style>-->
+<!--        <script>-->
+<!--            var hide = true;-->
 
-            function displayOrHidel1() {
-                var citylist = document.getElementById("managerProduct");
-                // var citylist=document.getElementsByClassName(citylist);
-                if (hide) {
-                    citylist.style.display = "block";
-                    hide = false;
-                } else {
-                    citylist.style.display = "none";
-                    hide = true;
-                }
-            }
-        </script>
-        <script>
-            var hide = true;
+<!--            function displayOrHidel1() {-->
+<!--                var citylist = document.getElementById("managerProduct");-->
+<!--                // var citylist=document.getElementsByClassName(citylist);-->
+<!--                if (hide) {-->
+<!--                    citylist.style.display = "block";-->
+<!--                    hide = false;-->
+<!--                } else {-->
+<!--                    citylist.style.display = "none";-->
+<!--                    hide = true;-->
+<!--                }-->
+<!--            }-->
+<!--        </script>-->
+<!--        <script>-->
+<!--            var hide = true;-->
 
-            function displayOrHidel2() {
-                var citylist = document.getElementById("managerOrder");
-                // var citylist=document.getElementsByClassName(citylist);
-                if (hide) {
-                    citylist.style.display = "block";
-                    hide = false;
-                } else {
-                    citylist.style.display = "none";
-                    hide = true;
-                }
-            }
-        </script>
-        <script>
-            var hide = true;
+<!--            function displayOrHidel2() {-->
+<!--                var citylist = document.getElementById("managerOrder");-->
+<!--                // var citylist=document.getElementsByClassName(citylist);-->
+<!--                if (hide) {-->
+<!--                    citylist.style.display = "block";-->
+<!--                    hide = false;-->
+<!--                } else {-->
+<!--                    citylist.style.display = "none";-->
+<!--                    hide = true;-->
+<!--                }-->
+<!--            }-->
+<!--        </script>-->
+<!--        <script>-->
+<!--            var hide = true;-->
 
-            function displayOrHidel3() {
-                var citylist = document.getElementById("managerUser");
-                // var citylist=document.getElementsByClassName(citylist);
-                if (hide) {
-                    citylist.style.display = "block";
-                    hide = false;
-                } else {
-                    citylist.style.display = "none";
-                    hide = true;
-                }
-            }
-        </script>
-        <script>
-            var hide = true;
+<!--            function displayOrHidel3() {-->
+<!--                var citylist = document.getElementById("managerUser");-->
+<!--                // var citylist=document.getElementsByClassName(citylist);-->
+<!--                if (hide) {-->
+<!--                    citylist.style.display = "block";-->
+<!--                    hide = false;-->
+<!--                } else {-->
+<!--                    citylist.style.display = "none";-->
+<!--                    hide = true;-->
+<!--                }-->
+<!--            }-->
+<!--        </script>-->
+<!--        <script>-->
+<!--            var hide = true;-->
 
-            function displayOrHidel4() {
-                var citylist = document.getElementById("managerAdmin");
-                // var citylist=document.getElementsByClassName(citylist);
-                if (hide) {
-                    citylist.style.display = "block";
-                    hide = false;
-                } else {
-                    citylist.style.display = "none";
-                    hide = true;
-                }
-            }
-        </script>
+<!--            function displayOrHidel4() {-->
+<!--                var citylist = document.getElementById("managerAdmin");-->
+<!--                // var citylist=document.getElementsByClassName(citylist);-->
+<!--                if (hide) {-->
+<!--                    citylist.style.display = "block";-->
+<!--                    hide = false;-->
+<!--                } else {-->
+<!--                    citylist.style.display = "none";-->
+<!--                    hide = true;-->
+<!--                }-->
+<!--            }-->
+<!--        </script>-->
 
 
     </div>

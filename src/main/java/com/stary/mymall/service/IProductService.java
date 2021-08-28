@@ -17,5 +17,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IProductService extends IService<Product> {
 
     public IPage<Product> selectProductPage(Page<Product> page);
-
+    public int addProduct(Product product);
 }

@@ -3,6 +3,7 @@
 <head>
 
     <title>商城管理</title>
+    <meta charset="UTF-8">
     <!--  导入头部文件-->
 
     <th:block th:replace="common/admin/commons::head_css"/>
@@ -18,99 +19,47 @@
     <div class="row">
         <!--引入侧边栏-->
         <div th:replace="common/admin/commons::sider"></div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="col-sm-3 col-md-2 right">
+                <h2 class="sub-header">添加商品</h2>
+                <div class="table-responsive">
 
+                    <form action="/admin/productsAddTo">
+                        <div class="form-group">
+                            <label for="productName"></label>
+                            <input type="text" class="form-control" name="productName" id="productName" placeholder="名称">
+                        </div>
+                        <div class="form-group">
+                            <label for="productSort"></label>
+                            <input type="text" class="form-control" name="productSort" id="productSort" placeholder="种类">
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice"></label>
+                            <input type="text" class="form-control" name="productPrice" id="productPrice" placeholder="价格">
+                        </div>
+                        <div class="form-group">
+                            <label for="productStock"></label>
+                            <input type="text" class="form-control"name="productStock" id="productStock" placeholder="库存">
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescript"></label>
+                            <input type="text" class="form-control" name="productDescript" id="productDescript" placeholder="描述">
+                        </div>
+                        <div class="form-group">
+                            <label for="productImgPath">选择商品图片</label>
+                            <input type="file" id="productImgPath" name="productImgPath">
+                            <p class="help-block">不超过1M大小.</p>
+                        </div>
 
-            <h2 class="sub-header">添加商品</h2>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>分类</th>
-                        <th>价格</th>
-                        <th>库存</th>
-                        <th>描述</th>
-                        <th>图片</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input name="productName" type="text" value="null"/></td>
-                        <td><input name="productSort" type="text"/></td>
-                        <td><input name="productPrice" type="text" /></td>
-                        <td><input name="productStock" type="text" /></td>
-                        <td><input name="productDescrip" type="text" /></td>
-                        <td><input name="productImgPath" type="text" /></td>
+                        <button type="submit" class="btn btn-default">添加</button>
+                    </form>
 
-                    </tr>
+                </div>
 
-                    <tr>
-                        <td><input name="productName" type="text" value="null"/></td>
-                        <td><input name="productSort" type="text" /></td>
-                        <td><input name="productPrice" type="text"/></td>
-                        <td><input name="productStock" type="text" /></td>
-                        <td><input name="productDescrip" type="text" /></td>
-                        <td><input name="productImgPath" type="text" /></td>
-
-                    </tr>
-                    <tr>
-                        <td><input name="productName" type="text" value="null"/></td>
-                        <td><input name="productSort" type="text" /></td>
-                        <td><input name="productPrice" type="text" /></td>
-                        <td><input name="productStock" type="text" /></td>
-                        <td><input name="productDescrip" type="text" /></td>
-                        <td><input name="productImgPath" type="text" /></td>
-
-                    </tr>
-                    <tr>
-                        <td><input name="productName" type="text" value="null"/></td>
-                        <td><input name="productSort" type="text"/></td>
-                        <td><input name="productPrice" type="text" /></td>
-                        <td><input name="productStock" type="text" /></td>
-                        <td><input name="productDescrip" type="text" /></td>
-                        <td><input name="productImgPath" type="text" /></td>
-
-                    </tr>
-                    <tr>
-                        <td><input name="productName" type="text" value="null"/></td>
-                        <td><input name="productSort" type="text" /></td>
-                        <td><input name="productPrice" type="text" /></td>
-                        <td><input name="productStock" type="text" /></td>
-                        <td><input name="productDescrip" type="text" /></td>
-                        <td><input name="productImgPath" type="text" /></td>
-
-                    </tr>
-                    <tr>
-                        <td><input name="productName" type="text" /></td>
-                        <td><input name="productSort" type="text" /></td>
-                        <td><input name="productPrice" type="text" /></td>
-                        <td><input name="productStock" type="text" /></td>
-                        <td><input name="productDescrip" type="text" /></td>
-                        <td><input name="productImgPath" type="text"/></td>
-
-                    </tr>
-
-                    <tr>
-                        <td></td><td></td><td></td><td></td><td></td>
-                        <td><input type="submit" value="提交"/></td>
-                    </tr>
-
-
-
-                    </tbody>
-                </table>
             </div>
 
-        <form action="manager/bookServlet" method="get">
-            <input type="hidden" name="action" value="${param.method}"/>
-            <input type="hidden" name="id" value="${requestScope.book.id}">
-            <input type="hidden" name="pageNo" value="${param.pageNo}">
 
-        </form>
-
-
-
-
+        </div>
 
 
 

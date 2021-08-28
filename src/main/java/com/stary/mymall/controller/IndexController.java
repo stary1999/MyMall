@@ -33,7 +33,7 @@ public class IndexController {
                               @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
 
 
-        Page<Product> page=new Page<>(pn,1);
+        Page<Product> page=new Page<>(pn,3);
         IPage<Product> pageInfo = productService.selectProductPage(page);
         MyPageHelper myPageHelper=new MyPageHelper(pageInfo);
         System.out.println("myPagehelper==="+myPageHelper);

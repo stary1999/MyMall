@@ -32,9 +32,19 @@ public class Product implements Serializable {
 
     private BigDecimal productPrice;
 
+    private String productDescript;
+
     private Integer productStock;
 
     private String productImgPath;
 
-
+    public Product(Integer productId, String productName, String productSort, BigDecimal productPrice, String productDescript, Integer productStock, String productImgPath) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productSort = productSort;
+        this.productPrice = productPrice;
+        this.productDescript = productDescript;
+        this.productStock = productStock;
+        this.productImgPath = productImgPath;
+    }
 }

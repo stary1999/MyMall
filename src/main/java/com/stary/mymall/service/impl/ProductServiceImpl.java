@@ -34,6 +34,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         return productMapper.selectPageVo(page);
     }
 
+    public int addProduct(Product product){
+        return productMapper.addProduct(product);
+    }
+
 
 
 }

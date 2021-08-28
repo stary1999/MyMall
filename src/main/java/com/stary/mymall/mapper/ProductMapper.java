@@ -22,5 +22,6 @@ public interface ProductMapper extends BaseMapper<Product> {
     public List<Product> queryAll();
     public Product queryById(Integer id);
     IPage<Product> selectPageVo(Page<?> page);
+    public Integer addProduct(Product product);
 
 }

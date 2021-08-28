@@ -11,5 +11,9 @@
     <select id="selectPageVo" resultType="com.stary.mymall.entity.Product">
         SELECT * FROM product
     </select>
+    <insert id="addProduct" parameterType="com.stary.mymall.entity.Product">
+        INSERT into product(product_name,product_sort,product_price,product_descript,product_stock,product_img_path)
+        values (#{productName},#{productSort},#{productPrice},#{productDescript},#{productStock},#{productImgPath})
+    </insert>
 
 </mapper>
