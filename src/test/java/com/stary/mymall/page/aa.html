@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+  <ul class="nav nav-sidebar">
+    <li>
+      <a style="color: blue;cursor: pointer" onclick="displayOrHidel()"> beijingshi</a>
+      <ul id="citylist1" class="citylist">
+        <li>dong</li>
+        <li>xi</li>
+        <li>chaoyang</li>
+        <li>haidian</li>
+      </ul>
+    </li>
+    <li>
+      <a style="color: blue;cursor: pointer" onclick="displayOrHidel2()"> 上海</a>
+      <ul id="citylist2" class="citylist">
+        <li>dong</li>
+        <li>xi</li>
+        <li>chaoyang</li>
+        <li>haidian</li>
+      </ul>
+    </li>
+    <li>
+      <a style="color: blue;cursor: pointer" onclick="displayOrHidel3()"> 绳子</a>
+      <ul id="citylist3" class="citylist">
+        <li>dong</li>
+        <li>xi</li>
+        <li>chaoyang</li>
+        <li>haidian</li>
+      </ul>
+    </li>
+  </ul>
+  <style type="text/css">
+    ul{list-style-type: none}
+    #citylist1{display: none}
+    #citylist2{display: none}
+    #citylist3{display: none}
+  </style>
+  <script>
+    var hide=true;
+    function displayOrHidel(){
+      var citylist=document.getElementById("citylist1");
+      // var citylist=document.getElementsByClassName(citylist);
+      if(hide){
+        citylist.style.display="block";
+        hide=false;
+      }
+      else{
+        citylist.style.display="none";
+        hide=true;
+      }
+    }
+  </script>
+  <script>
+    var hide=true;
+    function displayOrHidel2(){
+      var citylist=document.getElementById("citylist2");
+      // var citylist=document.getElementsByClassName(citylist);
+      if(hide){
+        citylist.style.display="block";
+        hide=false;
+      }
+      else{
+        citylist.style.display="none";
+        hide=true;
+      }
+    }
+  </script>
+  <script>
+    var hide=true;
+    function displayOrHidel3(){
+      var citylist=document.getElementById("citylist3");
+      // var citylist=document.getElementsByClassName(citylist);
+      if(hide){
+        citylist.style.display="block";
+        hide=false;
+      }
+      else{
+        citylist.style.display="none";
+        hide=true;
+      }
+    }
+  </script>
+
+
+</div>
+
+
+</body>
+</html>
