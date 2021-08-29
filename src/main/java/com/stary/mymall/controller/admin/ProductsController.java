@@ -6,6 +6,7 @@ import com.stary.mymall.entity.Product;
 import com.stary.mymall.service.IProductService;
 import com.stary.mymall.service.impl.ProductServiceImpl;
 import com.stary.mymall.utils.MyPageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -24,6 +26,7 @@ import java.util.List;
  * @description
  * @create 2021/8/25-16:16
  */
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class ProductsController {
@@ -31,7 +34,7 @@ public class ProductsController {
     private IProductService productService;
 
     @RequestMapping("/productsManager")
-    public ModelAndView ProductsManager(ModelAndView modelAndView,
+    public ModelAndView getProductsManager(ModelAndView modelAndView,
                                         @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
 
         Page<Product> page=new Page<>(pn,4);
@@ -41,37 +44,36 @@ public class ProductsController {
 
 
         modelAndView.addObject("pageInfo", myPageHelper);
-        modelAndView.setViewName("admin/products_Manager");
+        modelAndView.setViewName("admin/products_manager");
         return modelAndView;
     }
 
     @RequestMapping("/productsUpdate")
-    public ModelAndView ProductsUpdate(ModelAndView modelAndView){
+    public ModelAndView getProductsUpdate(ModelAndView modelAndView){
         return modelAndView;
 
     }
 
     @RequestMapping("/productsDelete")
-    public ModelAndView ProductsDelete(ModelAndView modelAndView){
+    public ModelAndView getProductsDelete(ModelAndView modelAndView){
         return modelAndView;
 
     }
 
     @RequestMapping("/productsAdd")
-    public ModelAndView ProductsAdd(ModelAndView modelAndView){
-        modelAndView.setViewName("admin/products_Manager_Add");
-        return modelAndView;
+    public String getProductsAdd(){
+        return "admin/products_manager_add";
     }
 
     @RequestMapping("/productsAddTo")
-    public String ProductsAddTo(ModelAndView modelAndView,
+    public String getProductsAddTo(HttpServletRequest httpServletRequest,
                                       @RequestParam(value = "productName",defaultValue = "null") String productName,
-                                      @RequestParam(value = "productSort",defaultValue = "null") String productSort,
-                                      @RequestParam(value = "productPrice",defaultValue = "0") BigDecimal productPrice,
-                                      @RequestParam(value = "productDescript",defaultValue = "null") String productDescript,
-                                      @RequestParam(value = "productStock",defaultValue = "0") Integer productStock,
+                                   @RequestParam(value = "productSort",defaultValue = "null") String productSort,
+                                   @RequestParam(value = "productPrice",defaultValue = "0") BigDecimal productPrice,
+                                   @RequestParam(value = "productDescript",defaultValue = "null") String productDescript,
+                                   @RequestParam(value = "productStock",defaultValue = "0") Integer productStock,
 
-                                      @RequestParam(value = "productImgPath",defaultValue = "null") String productImgPath){
+                                   @RequestParam(value = "productImgPath",defaultValue = "/static/image/default.png") String productImgPath){
 
 
         Product product=new Product(0,productName,productSort,productPrice,productDescript,productStock,productImgPath);
@@ -84,21 +86,18 @@ public class ProductsController {
 //        System.out.println("product===="+productImgPath);
 //        System.out.println("product===="+productName);
 
+        log.info("i==="+i);
         //todo 文件上传功能
         String msg;
-        if (i!=-1){
+        if (i==1){
             msg="添加成功";
         }
         else {
             msg="添加失败";
         }
+        httpServletRequest.setAttribute("msg",msg);
 
-        modelAndView.addObject("msg",msg);
-
-        modelAndView.setViewName("forward:/admin/productsManager?pn=-1");
-        modelAndView.setViewName("redirect:/admin/productsManager?&pn=-1");
-
-        return  "redirect:/admin/productsManager"+"?pn=-1";
+        return  "admin/products_manager_add";
     }
 
 //    @RequestMapping("/getProducts")

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Notifications</title>
+	<meta charset="utf-8">
+
+	<!--导入头部文件和设置-->
+	<th:block th:replace="commons/commons::common_head"></th:block>
+</head>
+
+<body>
+	<!-- WRAPPER -->
+	<div id="wrapper">
+		<!--导入上方导航栏-->
+		<div th:replace="commons/commons::common_navbar"></div>
+		<!--导入左侧导航栏-->
+		<div th:replace="commons/commons::common_left_sidebar"></div>
+
+		<!--编写此页面主要内容-->
+		<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<h3 class="page-title">Notifications</h3>
+					<div id="toastr-demo" class="panel">
+						<div class="panel-body">
+
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN -->
+
+		<!--导入底部版权信息-->
+		<div th:replace="commons/commons::common_footer_copyright"></div>
+
+	</div>
+	<!-- END WRAPPER -->
+	<!--导入基础javascript文件-->
+	<div th:replace="commons/commons::common_javascript"></div>
+
+</body>
+
+</html>

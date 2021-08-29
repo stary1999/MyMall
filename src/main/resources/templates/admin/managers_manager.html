@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Notifications</title>
+	<meta charset="utf-8">
+
+	<!--导入头部文件和设置-->
+	<th:block th:replace="commons/commons::common_head"></th:block>
+</head>
+
+<body>
+	<!-- WRAPPER -->
+	<div id="wrapper">
+		<!--导入上方导航栏-->
+		<div th:replace="commons/commons::common_navbar"></div>
+		<!--导入左侧导航栏-->
+		<div th:replace="commons/commons::common_left_sidebar"></div>
+
+		<!--编写此页面主要内容-->
+		<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<h3 class="page-title">产品列表</h3>
+					<div id="toastr-demo" class="panel">
+						<div class="panel-body">
+
+							<!--message-->
+
+							<h2 class="sub-header">产品列表</h2>
+
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+									<tr>
+										<th>商品编号</th>
+										<th>商品名称</th>
+										<th>商品分类</th>
+										<th>商品价格</th>
+										<th>商品库存</th>
+										<th>商品描述</th>
+										<th>图片预览</th>
+										<th>操作</th>
+
+									</tr>
+									</thead>
+									<tbody>
+									<tr th:each="product,productList:${pageInfo.records}">
+										<td>[[${product.productId}]]</td>
+										<td>[[${product.productName}]]</td>
+										<td>[[${product.productSort}]]</td>
+										<td>[[${product.productPrice}]]</td>
+										<td>[[${product.productDescript}]]</td>
+										<td>[[${product.productStock}]]</td>
+										<td>[[${product.productImgPath}]]</td>
+										<th>
+											<a th:href="'/admin/productsUpdata?id='+${product.productId}">修改</a> &nbsp;
+											<a th:href="'/admin/productsDelete?id='+${product.productId}">删除</a>
+										</th>
+
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td>
+											<a href="/admin/productsAdd">新增商品</a>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+
+							</div>
+
+
+							<!--end message-->
+
+
+							<!-- CONTEXTUAL -->
+							<h4>Context</h4>
+							<p class="demo-button">
+								<button type="button" class="btn btn-primary btn-toastr" data-context="info" data-message="This is general theme info" data-position="top-right">General Info</button>
+								<button type="button" class="btn btn-success btn-toastr" data-context="success" data-message="This is success info" data-position="top-right">Success Info</button>
+								<button type="button" class="btn btn-warning btn-toastr" data-context="warning" data-message="This is warning info" data-position="top-right">Warning Info</button>
+								<button type="button" class="btn btn-danger btn-toastr" data-context="error" data-message="This is error info" data-position="top-right">Error Info</button>
+							</p>
+							<!-- END CONTEXTUAL -->
+							<br>
+							<!-- POSITION -->
+							<h4>Position</h4>
+							<p class="demo-button">
+								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="bottom-right">Bottom Right</button>
+								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="bottom-left">Bottom Left</button>
+								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="top-left">Top Left</button>
+								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="top-right">Top Right</button>
+								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="top-full-width">Top Full Width</button>
+								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="bottom-full-width">Bottom Full Width</button>
+								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="top-center">Top Center</button>
+								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="bottom-center">Bottom Center</button>
+							</p>
+							<!-- END POSITION -->
+							<br>
+							<!-- CALLBACK -->
+							<h4>Callback</h4>
+							<p class="demo-button">
+								<button type="button" class="btn btn-default btn-toastr-callback" id="toastr-callback1" data-context="info" data-message="onShown and onHidden callback demo">onShown and onHidden</button>
+								<button type="button" class="btn btn-default btn-toastr-callback" id="toastr-callback2" data-context="info" data-message="Please click me">onclick</button>
+								<button type="button" class="btn btn-default btn-toastr-callback" id="toastr-callback3" data-context="info" data-message="Please click close button">onCloseClick</button>
+							</p>
+							<!-- END CALLBACK -->
+
+							<!--pagebar-->
+							<nav aria-label="Page navigation" align="center">
+								<ul class="pagination ">
+
+									<li>
+										<a th:href="'/admin/productsManager?pn=1'">首页</a>
+										<a th:href="'/admin/productsManager?pn='+${pageInfo.previous}" th:if="${pageInfo.isPrevious}">上一页</a>
+										<a>当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页</a>
+										<a th:href="'/admin/productsManager?pn='+${pageInfo.next}" th:if="${pageInfo.isNext}">下一页</a>
+										<a th:href="'/admin/productsManager?pn='+${pageInfo.pages}">尾页</a>
+									</li>
+
+
+								</ul>
+							</nav>
+							<!--end pagebar-->
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN -->
+
+		<!--导入底部版权信息-->
+		<div th:replace="commons/commons::common_footer_copyright"></div>
+
+	</div>
+	<!-- END WRAPPER -->
+	<!--导入基础javascript文件-->
+	<div th:replace="commons/commons::common_javascript"></div>
+
+</body>
+
+</html>

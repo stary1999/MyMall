@@ -43,6 +43,21 @@ public class IndexController {
         modelAndView.setViewName("index");
         return modelAndView;
     }
+    @RequestMapping("/index")
+    public ModelAndView getIndex(ModelAndView modelAndView,
+                              @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+
+
+        Page<Product> page=new Page<>(pn,3);
+        IPage<Product> pageInfo = productService.selectProductPage(page);
+        MyPageHelper myPageHelper=new MyPageHelper(pageInfo);
+        System.out.println("myPagehelper==="+myPageHelper);
+
+
+        modelAndView.addObject("pageInfo", myPageHelper);
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
 
 
 

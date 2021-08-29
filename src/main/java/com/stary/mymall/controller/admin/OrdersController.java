@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class OrdersController {
     @RequestMapping("/ordersManager")
-    public String ordersManager(){
-        return "/admin/orders_Manager";
+    public String getOrdersManager(){
+        return "/admin/orders_manager";
     }
 
 }
