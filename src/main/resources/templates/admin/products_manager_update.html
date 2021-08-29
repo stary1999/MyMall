@@ -24,11 +24,13 @@
         <div class="main-content">
             <div class="container-fluid">
                 <h3 class="page-title">修改商品</h3>
+
+                <div class="alert alert-warning alert-dismissible" role="alert" th:if="${msg}">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <i class="fa fa-warning"></i> [[${msg}]]
+                </div>
                 <div>
                     <a href="/admin/productsManager" class="btn btn-default">返回商品页</a>
-                </div>
-                <div th:if="${not #strings.isEmpty(#request.getAttribute('msg'))}">
-                    <div th:text="${#request.getAttribute('msg')}"></div>
                 </div>
                 <div id="toastr-demo" class="panel">
                     <div class="panel-body">
@@ -51,11 +53,18 @@
                                     <input type="text" class="form-control" name="productName" id="productName"
                                            th:placeholder="${product.productName}" th:value="${product.productName}">
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="productSort"></label>
-                                    <input type="text" class="form-control" name="productSort" id="productSort"
-                                           th:placeholder="${product.productSort}" th:value="${product.productSort}">
+                                    <select class="form-control" name="productSort" placeholder="种类" th:selected="${product.productSort}">
+                                        <option id="其他" value="其他">其他</option>
+                                        <option id="数码" value="数码">数码</option>
+                                        <option id="百货" value="百货">百货</option>
+                                        <option id="生鲜" value="生鲜">生鲜</option>
+                                        <option id="服饰" value="服饰">服饰</option>
+
+                                    </select>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="productPrice"></label>
                                     <input type="text" class="form-control" name="productPrice" id="productPrice"

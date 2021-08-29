@@ -42,6 +42,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public boolean updateProduct(Product product){
         return productMapper.updateProduct(product);
     }
+    public boolean deleteProduct(Integer productId){
+        return productMapper.deleteProduct(productId);
+    }
 
 
 

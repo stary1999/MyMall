@@ -24,6 +24,10 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<h3 class="page-title">产品列表</h3>
+					<div class="alert alert-warning alert-dismissible" role="alert" th:if="${msg}">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<i class="fa fa-warning"></i> [[${msg}]]
+					</div>
 					<div id="toastr-demo" class="panel">
 						<div class="panel-body">
 

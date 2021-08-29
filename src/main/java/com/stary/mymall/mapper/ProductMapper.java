@@ -19,10 +19,11 @@ import java.util.List;
 @Mapper
 public interface ProductMapper extends BaseMapper<Product> {
 
-    public List<Product> queryAll();
-    public Product queryById(Integer id);
+    List<Product> queryAll();
+    Product queryById(Integer id);
     IPage<Product> selectPageVo(Page<?> page);
-    public Integer addProduct(Product product);
-    public Boolean updateProduct(Product product);
+    Integer addProduct(Product product);
+    Boolean updateProduct(Product product);
+    Boolean deleteProduct(Integer productId);
 
 }

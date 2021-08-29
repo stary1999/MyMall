@@ -21,5 +21,9 @@
                            product_stock=#{productStock},product_img_path=#{productImgPath}
         where product_id=#{productId}
     </update>
+    <delete id="deleteProduct" parameterType="INTEGER">
+        delete from product
+        where product_id=#{productId}
+    </delete>
 
 </mapper>

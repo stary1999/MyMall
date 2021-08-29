@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stary.mymall.entity.Product;
 import com.stary.mymall.service.IProductService;
 import com.stary.mymall.service.impl.ProductServiceImpl;
+import com.stary.mymall.utils.Msg;
 import com.stary.mymall.utils.MyPageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -34,18 +36,17 @@ public class ProductsController {
     private IProductService productService;
 
     @RequestMapping("/productsManager")
-    public ModelAndView getProductsManager(ModelAndView modelAndView,
+    public String getProductsManager(HttpServletRequest request,
+                                        @RequestParam(value = "msg",defaultValue = "false") String msg,
                                         @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
 
         Page<Product> page=new Page<>(pn,4);
         IPage<Product> pageInfo = productService.selectProductPage(page);
         MyPageHelper myPageHelper=new MyPageHelper(pageInfo);
         System.out.println("myPagehelper==="+myPageHelper);
-
-
-        modelAndView.addObject("pageInfo", myPageHelper);
-        modelAndView.setViewName("admin/products_manager");
-        return modelAndView;
+        request.setAttribute("msg",msg);
+        request.setAttribute("pageInfo", myPageHelper);
+        return "admin/products_manager";
     }
 
     @RequestMapping("/productsUpdate")
@@ -89,8 +90,12 @@ public class ProductsController {
     }
 
     @RequestMapping("/productsDelete")
-    public ModelAndView getProductsDelete(ModelAndView modelAndView){
-        return modelAndView;
+    public String getProductsDelete(
+                                    @RequestParam(value = "productId",defaultValue = "-1") Integer productId){
+
+        boolean b = productService.deleteProduct(productId);
+        String msg = "?msg="+Msg.MsgUtils(b, "删除");
+        return "forward:/admin/productsManager"+msg;
 
     }
 
