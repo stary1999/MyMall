@@ -1,6 +1,7 @@
 package com.stary.mymall.controller.admin;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @description
  * @create 2021/8/24-18:23
  */
-
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -29,6 +30,16 @@ public class AdminController {
     @RequestMapping("/login")
     public String getAdminLogin(){
         return "admin/admin_login";
+    }
+
+    @PostMapping("/login")
+    public String getLogin(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        @RequestParam(value = "remember",defaultValue =  "false") Boolean remember){
+
+        log.info("username=="+username+"    password==="+password+"   remember===="+remember);
+
+        return "admin/admin_index";
     }
 
     @RequestMapping("/commons")
