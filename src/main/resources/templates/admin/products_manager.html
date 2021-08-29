@@ -2,7 +2,7 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Notifications</title>
+	<title>产品管理</title>
 	<meta charset="utf-8">
 
 	<!--导入头部文件和设置-->
@@ -55,8 +55,8 @@
 										<td>[[${product.productStock}]]</td>
 										<td><a th:href="${product.productImgPath}">点击查看</a></td>
 										<th>
-											<a th:href="'/admin/productsUpdata?id='+${product.productId}">修改</a> &nbsp;
-											<a th:href="'/admin/productsDelete?id='+${product.productId}">删除</a>
+											<a th:href="'/admin/productsUpdate?productId='+${product.productId}">修改</a> &nbsp;
+											<a th:href="'/admin/productsDelete?productId='+${product.productId}">删除</a>
 										</th>
 
 									</tr>

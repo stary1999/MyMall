@@ -49,8 +49,42 @@ public class ProductsController {
     }
 
     @RequestMapping("/productsUpdate")
-    public ModelAndView getProductsUpdate(ModelAndView modelAndView){
-        return modelAndView;
+    public String getProductsUpdate(HttpServletRequest HttpServletRequest,
+            @RequestParam(value = "productId",defaultValue = "-1") Integer productId){
+
+        Product product = productService.selectProductById(productId);
+        System.out.println("product===="+product);
+
+        HttpServletRequest.setAttribute("product",product);
+        return "admin/products_manager_update";
+
+    }
+    @RequestMapping("/productsUpdateTo")
+    public String getProductsUpdateTo(HttpServletRequest httpServletRequest,
+                                      @RequestParam(value = "productId",defaultValue = "-1") Integer productId,
+                                      @RequestParam(value = "productName",defaultValue = "null") String productName,
+                                      @RequestParam(value = "productSort",defaultValue = "null") String productSort,
+                                      @RequestParam(value = "productPrice",defaultValue = "0") BigDecimal productPrice,
+                                      @RequestParam(value = "productDescript",defaultValue = "null") String productDescript,
+                                      @RequestParam(value = "productStock",defaultValue = "0") Integer productStock,
+
+                                      @RequestParam(value = "productImgPath",defaultValue = "/static/image/default.png") String productImgPath
+                                      ){
+
+        System.out.println("productId===="+productId);
+        Product product=new Product(productId,productName,productSort,productPrice,productDescript,productStock,productImgPath);
+
+        boolean b = productService.updateProduct(product);
+        String msg="";
+
+        if (b){
+            msg="更新成功";
+        }
+        else {
+            msg="更新失败";
+        }
+        httpServletRequest.setAttribute("msg",msg);
+        return "admin/products_manager_update";
 
     }
 

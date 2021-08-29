@@ -42,9 +42,17 @@ public class ProductMapperTest {
     @Test void addTest(){
         BigDecimal price=new BigDecimal(50);
         Product product=new Product(0,"茶壶","百货",price,
-                "来一杯tea吧",50,"null");
+                "来一杯tea吧",50,"/static/image/default.png");
         Integer integer = productMapper.addProduct(product);
         System.out.println("inte========"+integer);
+    }
+    @Test
+    void updateTest(){
+        BigDecimal price=new BigDecimal(50);
+        Product product=new Product(7,"茶壶","百货",price,
+                "来一杯tea吧",50,"/static/image/default.png");
+        Boolean aBoolean = productMapper.updateProduct(product);
+        System.out.println("=====boolean===="+aBoolean);
     }
 
 }

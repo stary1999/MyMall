@@ -15,5 +15,11 @@
         INSERT into product(product_name,product_sort,product_price,product_descript,product_stock,product_img_path)
         values (#{productName},#{productSort},#{productPrice},#{productDescript},#{productStock},#{productImgPath})
     </insert>
+    <update id="updateProduct" parameterType="com.stary.mymall.entity.Product">
+        update product set product_name=#{productName},product_sort=#{productSort},
+                           product_price=#{productPrice},product_descript=#{productDescript},
+                           product_stock=#{productStock},product_img_path=#{productImgPath}
+        where product_id=#{productId}
+    </update>
 
 </mapper>

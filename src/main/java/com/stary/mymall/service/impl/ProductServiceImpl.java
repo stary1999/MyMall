@@ -33,10 +33,16 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         // 要点!! 分页返回的对象与传入的对象是同一个
         return productMapper.selectPageVo(page);
     }
-
+    public Product selectProductById(Integer id){
+        return productMapper.queryById(id);
+    }
     public int addProduct(Product product){
         return productMapper.addProduct(product);
     }
+    public boolean updateProduct(Product product){
+        return productMapper.updateProduct(product);
+    }
+
 
 
 
