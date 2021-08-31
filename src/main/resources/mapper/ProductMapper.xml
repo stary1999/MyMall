@@ -8,9 +8,14 @@
     <select id="queryById" resultType="com.stary.mymall.entity.Product" parameterType="integer">
         SELECT * FROM product where product_id=#{id}
     </select>
-    <select id="selectPageVo" resultType="com.stary.mymall.entity.Product">
+    <select id="queryPageBySort" resultType="com.stary.mymall.entity.Product" parameterType="string">
+        SELECT * FROM product where product_sort=#{productSort}
+    </select>
+    <select id="selectPage" resultType="com.stary.mymall.entity.Product">
         SELECT * FROM product
     </select>
+
+
     <insert id="addProduct" parameterType="com.stary.mymall.entity.Product">
         INSERT into product(product_name,product_sort,product_price,product_descript,product_stock,product_img_path)
         values (#{productName},#{productSort},#{productPrice},#{productDescript},#{productStock},#{productImgPath})

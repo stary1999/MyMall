@@ -31,8 +31,12 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         // page.setOptimizeCountSql(false);
         // 当 total 为小于 0 或者设置 setSearchCount(false) 分页插件不会进行 count 查询
         // 要点!! 分页返回的对象与传入的对象是同一个
-        return productMapper.selectPageVo(page);
+        return productMapper.selectPage(page);
     }
+    public IPage<Product> queryPageBySort(Page<Product> page,String productSort){
+        return productMapper.queryPageBySort(page,productSort);
+    }
+
     public Product selectProductById(Integer id){
         return productMapper.queryById(id);
     }

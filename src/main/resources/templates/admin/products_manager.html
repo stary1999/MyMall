@@ -2,120 +2,122 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>产品管理</title>
-	<meta charset="utf-8">
+    <title>产品管理</title>
+    <meta charset="utf-8">
 
-	<!--导入头部文件和设置-->
-	<th:block th:replace="commons/commons::common_head"></th:block>
+    <!--导入头部文件和设置-->
+    <th:block th:replace="commons/commons::common_head"></th:block>
 </head>
 
 <body>
-	<!-- WRAPPER -->
-	<div id="wrapper">
-		<!--导入上方导航栏-->
-		<div th:replace="commons/commons::common_navbar"></div>
-		<!--导入左侧导航栏-->
-		<div th:replace="commons/commons::common_left_sidebar"></div>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <!--导入上方导航栏-->
+    <div th:replace="commons/commons::common_navbar"></div>
+    <!--导入左侧导航栏-->
+    <div th:replace="commons/commons::common_left_sidebar"></div>
 
-		<!--编写此页面主要内容-->
-		<!-- MAIN -->
-		<div class="main">
-			<!-- MAIN CONTENT -->
-			<div class="main-content">
-				<div class="container-fluid">
-					<h3 class="page-title">产品列表</h3>
-					<div class="alert alert-warning alert-dismissible" role="alert" th:if="${msg}">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<i class="fa fa-warning"></i> [[${msg}]]
-					</div>
-					<div id="toastr-demo" class="panel">
-						<div class="panel-body">
+    <!--编写此页面主要内容-->
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <h3 class="page-title">产品列表</h3>
+                <div class="alert alert-warning alert-dismissible" role="alert" th:if="${msg}">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <i class="fa fa-warning"></i> [[${msg}]]
+                </div>
 
-
-							<!--message-->
-
-							<div class="table-responsive">
-								<table class="table table-striped">
-									<thead>
-									<tr>
-										<th>商品编号</th>
-										<th>商品名称</th>
-										<th>商品分类</th>
-										<th>商品价格</th>
-										<th>商品库存</th>
-										<th>商品描述</th>
-										<th>图片</th>
-										<th colspan="2">操作</th>
-
-									</tr>
-									</thead>
-									<tbody>
-									<tr th:each="product,productList:${pageInfo.records}">
-										<td>[[${product.productId}]]</td>
-										<td>[[${product.productName}]]</td>
-										<td>[[${product.productSort}]]</td>
-										<td>[[${product.productPrice}]]</td>
-										<td>[[${product.productDescript}]]</td>
-										<td>[[${product.productStock}]]</td>
-										<td><a th:href="${product.productImgPath}">点击查看</a></td>
-										<th>
-											<a th:href="'/admin/productsUpdate?productId='+${product.productId}">修改</a> &nbsp;
-											<a th:href="'/admin/productsDelete?productId='+${product.productId}">删除</a>
-										</th>
-
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td>
-											<a href="/admin/productsAdd">新增商品</a>
-										</td>
-									</tr>
-									</tbody>
-								</table>
-
-							</div>
+                <div class="panel-body">
 
 
-							<!--end message-->
+                    <!--message-->
 
-							<!--pagebar-->
-							<nav aria-label="Page navigation" align="center">
-								<ul class="pagination ">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>商品编号</th>
+                                <th>商品名称</th>
+                                <th>商品分类</th>
+                                <th>商品价格</th>
+                                <th>商品库存</th>
+                                <th>商品描述</th>
+                                <th>图片</th>
+                                <th colspan="2">操作</th>
 
-									<li>
-										<a th:href="'/admin/productsManager?pn=1'">首页</a>
-										<a th:href="'/admin/productsManager?pn='+${pageInfo.previous}" th:if="${pageInfo.isPrevious}">上一页</a>
-										<a>当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页</a>
-										<a th:href="'/admin/productsManager?pn='+${pageInfo.next}" th:if="${pageInfo.isNext}">下一页</a>
-										<a th:href="'/admin/productsManager?pn='+${pageInfo.pages}">尾页</a>
-									</li>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="product,productList:${pageInfo.records}">
+                                <td>[[${product.productId}]]</td>
+                                <td>[[${product.productName}]]</td>
+                                <td>[[${product.productSort}]]</td>
+                                <td>[[${product.productPrice}]]</td>
+                                <td>[[${product.productDescript}]]</td>
+                                <td>[[${product.productStock}]]</td>
+                                <td><a th:href="${product.productImgPath}">点击查看</a></td>
+                                <th>
+                                    <a th:href="'/admin/productsUpdate?productId='+${product.productId}">修改</a> &nbsp;
+                                    <a th:href="'/admin/productsDelete?productId='+${product.productId}">删除</a>
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a href="/admin/productsAdd">新增商品</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
 
 
-								</ul>
-							</nav>
-							<!--end pagebar-->
+                    <!--end message-->
 
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- END MAIN CONTENT -->
-		</div>
-		<!-- END MAIN -->
+                </div>
 
-		<!--导入底部版权信息-->
-		<div th:replace="commons/commons::common_footer_copyright"></div>
+				<!--pagebar-->
+				<nav aria-label="Page navigation" align="center">
+					<ul class="pagination ">
 
-	</div>
-	<!-- END WRAPPER -->
-	<!--导入基础javascript文件-->
-	<div th:replace="commons/commons::common_javascript"></div>
+						<li>
+							<a th:href="'/admin/productsManager?pn=1'">首页</a>
+							<a th:href="'/admin/productsManager?pn='+${pageInfo.previous}"
+							   th:if="${pageInfo.isPrevious}">上一页</a>
+							<a>当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页</a>
+							<a th:href="'/admin/productsManager?pn='+${pageInfo.next}" th:if="${pageInfo.isNext}">下一页</a>
+							<a th:href="'/admin/productsManager?pn='+${pageInfo.pages}">尾页</a>
+						</li>
+
+
+					</ul>
+				</nav>
+				<!--end pagebar-->
+
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+    </div>
+    <!-- END MAIN -->
+
+    <!--导入底部版权信息-->
+    <div th:replace="commons/commons::common_footer_copyright"></div>
+
+</div>
+<!-- END WRAPPER -->
+<!--导入基础javascript文件-->
+<div th:replace="commons/commons::common_javascript"></div>
 
 </body>
 

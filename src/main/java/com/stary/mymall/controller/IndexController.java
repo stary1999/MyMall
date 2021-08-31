@@ -7,14 +7,11 @@ import com.stary.mymall.entity.Product;
 import com.stary.mymall.service.IProductService;
 import com.stary.mymall.utils.MyPageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author stary
@@ -29,36 +26,43 @@ public class IndexController {
     private IProductService productService;
 
     @RequestMapping("/")
-    public ModelAndView index(ModelAndView modelAndView,
-                              @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
-
-
-        Page<Product> page=new Page<>(pn,3);
-        IPage<Product> pageInfo = productService.selectProductPage(page);
-        MyPageHelper myPageHelper=new MyPageHelper(pageInfo);
-        System.out.println("myPagehelper==="+myPageHelper);
-
-
-        modelAndView.addObject("pageInfo", myPageHelper);
-        modelAndView.setViewName("index");
-        return modelAndView;
+    public String index() {
+        return "forward:/index";
     }
     @RequestMapping("/index")
-    public ModelAndView getIndex(ModelAndView modelAndView,
+    public String getIndex(HttpServletRequest request,
+                              @RequestParam(value = "sort",defaultValue = "全部") String sort,
                               @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
 
 
-        Page<Product> page=new Page<>(pn,3);
-        IPage<Product> pageInfo = productService.selectProductPage(page);
+        Page<Product> page=new Page<>(pn,4);
+        IPage<Product> pageInfo=new Page<>();
+        if (sort.equals("全部")){
+            pageInfo = productService.selectProductPage(page);
+        }
+        else{
+            //todo 查询对应的种类
+            pageInfo= productService.queryPageBySort(page, sort);
+
+        }
+
         MyPageHelper myPageHelper=new MyPageHelper(pageInfo);
         System.out.println("myPagehelper==="+myPageHelper);
+        request.setAttribute("pageInfo", myPageHelper);
+        return "mall/index";
 
-
-        modelAndView.addObject("pageInfo", myPageHelper);
-        modelAndView.setViewName("index");
-        return modelAndView;
     }
 
 
+    @RequestMapping("addToCart")
+    public String getAddToCart(HttpServletRequest request,
+                               @RequestParam(value = "productId", defaultValue = "0") Integer productId){
+        Product product = productService.selectProductById(productId);
+
+
+
+        return "forward:/index";
+
+    }
 
 }

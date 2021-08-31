@@ -21,4 +21,5 @@ public interface IProductService extends IService<Product> {
     public Product selectProductById(Integer id);
     public boolean updateProduct(Product product);
     public boolean deleteProduct(Integer productId);
+    public IPage<Product> queryPageBySort(Page<Product> page,String productSort);
 }

@@ -1,5 +1,7 @@
 package com.stary.mymall.daoUser;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stary.mymall.entity.Product;
 import com.stary.mymall.mapper.ProductMapper;
 import com.stary.mymall.entity.Product;
@@ -53,6 +55,15 @@ public class ProductMapperTest {
                 "来一杯tea吧",50,"/static/image/default.png");
         Boolean aBoolean = productMapper.updateProduct(product);
         System.out.println("=====boolean===="+aBoolean);
+    }
+    @Test
+    void queryPageBySortTest(){
+        String sort="数码";
+        Page<Product> page=new Page<>(1,4);
+        IPage<Product> productIPage = productMapper.queryPageBySort(page, sort);
+        System.out.println("prodctIpage===="+productIPage.getRecords().toString());
+        System.out.println("prodctIpage===="+productIPage.getPages());
+        System.out.println("prodctIpage===="+productIPage.getTotal());
     }
 
 }
