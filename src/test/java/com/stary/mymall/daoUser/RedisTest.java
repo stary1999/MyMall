@@ -3,6 +3,7 @@ package com.stary.mymall.daoUser;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.stary.mymall.entity.Product;
+import com.stary.mymall.utils.RedisUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,9 @@ public class RedisTest {
 
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
 
 
@@ -48,6 +52,15 @@ public class RedisTest {
 //        //json字符串转成对象
 //        User user1 = JSON.parseObject(json,User.class);
 //
+
+    }
+    @Test
+    public void hsetTest(){
+        boolean hset = redisUtil.hset("userId", "productId", "1");
+        System.out.println("hset===="+hset);
+        Object hget = redisUtil.hget("userId", "productId");
+        System.out.println("hget===="+hget);
+
 
     }
 }

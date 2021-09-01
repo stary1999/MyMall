@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -25,12 +26,14 @@ public class IndexController {
     @Autowired
     private IProductService productService;
 
+
     @RequestMapping("/")
     public String index() {
         return "forward:/index";
     }
     @RequestMapping("/index")
     public String getIndex(HttpServletRequest request,
+                              @RequestParam(value = "msg",defaultValue = "") String msg,
                               @RequestParam(value = "sort",defaultValue = "全部") String sort,
                               @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
 
@@ -46,22 +49,11 @@ public class IndexController {
 
         }
 
-        MyPageHelper myPageHelper=new MyPageHelper(pageInfo);
+        MyPageHelper myPageHelper=new MyPageHelper(pageInfo,sort);
         System.out.println("myPagehelper==="+myPageHelper);
         request.setAttribute("pageInfo", myPageHelper);
+        request.setAttribute("msg",msg);
         return "mall/index";
-
-    }
-
-
-    @RequestMapping("addToCart")
-    public String getAddToCart(HttpServletRequest request,
-                               @RequestParam(value = "productId", defaultValue = "0") Integer productId){
-        Product product = productService.selectProductById(productId);
-
-
-
-        return "forward:/index";
 
     }
 

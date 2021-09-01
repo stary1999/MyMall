@@ -36,12 +36,15 @@ public class MyPageHelper {
     private Boolean isPrevious;
     //是否存在后一页
     private Boolean isNext;
+    //分类
+    private String sort;
 
-    public  MyPageHelper(IPage<?> pageInfo){
+    public  MyPageHelper(IPage<?> pageInfo,String sort){
         this.current=pageInfo.getCurrent();
         this.pages=pageInfo.getPages();
         this.total=pageInfo.getTotal();
         this.records=pageInfo.getRecords();
+        this.sort=sort;
         if (this.current>1){
             this.previous=this.current-1;
             this.isPrevious=true;

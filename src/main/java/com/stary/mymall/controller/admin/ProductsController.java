@@ -42,7 +42,9 @@ public class ProductsController {
 
         Page<Product> page=new Page<>(pn,4);
         IPage<Product> pageInfo = productService.selectProductPage(page);
-        MyPageHelper myPageHelper=new MyPageHelper(pageInfo);
+        String sort="全部";
+        //todo 完善管理分类
+        MyPageHelper myPageHelper=new MyPageHelper(pageInfo,sort);
         System.out.println("myPagehelper==="+myPageHelper);
         request.setAttribute("msg",msg);
         request.setAttribute("pageInfo", myPageHelper);

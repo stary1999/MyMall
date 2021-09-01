@@ -133,11 +133,11 @@
             <ul class="pagination ">
 
                 <li>
-                    <a th:href="'/?pn=1'">首页</a>
-                    <a th:href="'/?pn='+${pageInfo.previous}" th:if="${pageInfo.isPrevious}">上一页</a>
+                    <a th:href="'/?pn=1'+'&sort='+${pageInfo.sort}">首页</a>
+                    <a th:href="'/?pn='+${pageInfo.previous}+'&sort='+${pageInfo.sort}" th:if="${pageInfo.isPrevious}">上一页</a>
                     <a>当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页</a>
-                    <a th:href="'/?pn='+${pageInfo.next}" th:if="${pageInfo.isNext}">下一页</a>
-                    <a th:href="'/?pn='+${pageInfo.pages}">尾页</a>
+                    <a th:href="'/?pn='+${pageInfo.next}+'&sort='+${pageInfo.sort}" th:if="${pageInfo.isNext}">下一页</a>
+                    <a th:href="'/?pn='+${pageInfo.pages}+'&sort='+${pageInfo.sort}">尾页</a>
                 </li>
 
 
