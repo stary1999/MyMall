@@ -15,4 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper extends BaseMapper<User> {
     User queryById(Integer userId);
     Boolean addUser(User user);
+    User queryByEmail(String userMail);
+    User queryByName(String userName);
+
 }

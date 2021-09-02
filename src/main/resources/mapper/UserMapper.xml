@@ -8,6 +8,14 @@
     <select id="queryById" resultType="com.stary.mymall.entity.User" parameterType="integer">
         SELECT * FROM user_table where user_id=#{userId}
     </select>
+
+    <select id="queryByName"  resultType="com.stary.mymall.entity.User" parameterType="string">
+        SELECT * FROM user_table where user_name=#{userName}
+    </select>
+    <select id="queryByEmail" resultType="com.stary.mymall.entity.User" parameterType="string">
+        SELECT * FROM user_table where user_email=#{userEmail}
+    </select>
+
     <insert id="addUser" parameterType="com.stary.mymall.entity.User">
         insert into user_table(user_name,user_password,user_email,user_admin)
         values(#{userName},#{userPassword},#{userEmail},#{userAdmin})

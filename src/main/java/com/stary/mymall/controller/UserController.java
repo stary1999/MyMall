@@ -1,7 +1,10 @@
 package com.stary.mymall.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.stary.mymall.entity.User;
+import com.stary.mymall.service.UserService;
 import com.stary.mymall.utils.BackJson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,8 @@ import java.util.Map;
 
 @Controller
 public class UserController {
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/login")
@@ -40,12 +45,17 @@ public class UserController {
                             ){
 
         //todo 账号校验
-        if (username.equals("admin")&&password.equals("123")){
+        Boolean login = userService.login(username, password);
+        if (login){
+            User user = userService.getUser(username);
             //登录成功，防止表单重复提交，可以重定向到主页
-            session.setAttribute("loginUser",username);
-            Integer userId=Integer.valueOf("0005");
-            session.setAttribute("loginUserId",userId);
-            return "redirect:/index";
+            session.setAttribute("loginUser",user);
+            if (!user.getUserAdmin().equals(0)){
+                return "redirect:/admin/index";
+            }else {
+                return "redirect:/index";
+            }
+
         }
         else {
             //登录失败
@@ -67,9 +77,10 @@ public class UserController {
     @ResponseBody
     public Boolean getName(@RequestParam(value = "username") String username){
         //数据库查询
+        Boolean name = userService.getName(username);
 
         System.out.println("username==="+username);
-        if (username.equals("admin")){
+        if (name){
             return false;
         }
         else {
@@ -80,8 +91,9 @@ public class UserController {
     @ResponseBody
     public Boolean getEmail(@RequestParam(value = "email") String email){
         //数据库查询
+        Boolean email1 = userService.getEmail(email);
         System.out.println("email==="+email);
-        if (email.equals("aa@aa.aa")){
+        if (email1){
             return false;
         }
         else {
@@ -100,21 +112,22 @@ public class UserController {
 
 
         System.out.println("username="+username+"  "+password+"  "+email);
-        //todo 判断数据库
-//        添加数据库
-//        JSONObject jsonObject= new JSONObject();
-//        Map<String,String> map=new HashMap<>();
-//        map.put("phone","1223456");
-//        map.put("status","ok");
-//        System.out.println("map");
-//        BackJson.backJson(response,map);
+        //后端再校验一遍 todo
+        //
+        // 判断数据库
+        User user=new User(0,username,password,email,0);
+        Boolean aBoolean = userService.addUser(user);
+        String msg;
+        if (aBoolean){
+            msg="注册成功！";
+        }
+        else {
+            msg="注册失败！";
+        }
 
-
-        String msg="注册成功！";
         request.setAttribute("msg",msg);
         return "mall/mall_register";
 
-        //
     }
 }
 
