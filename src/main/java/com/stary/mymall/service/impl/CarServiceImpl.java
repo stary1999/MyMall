@@ -76,8 +76,8 @@ public class CarServiceImpl implements CarService {
         BigDecimal totalPrice=new BigDecimal(0);
         Map<Object, Object> objectObjectMap = redisUtil.hgetAll(userId);
         for (Map.Entry<Object,Object> entry:objectObjectMap.entrySet()){
-            Integer productId=(Integer) entry.getKey();
-            Integer number=(Integer) entry.getValue();
+            Integer productId=Integer.valueOf(entry.getKey().toString());
+            Integer number=Integer.valueOf(entry.getValue().toString()) ;
             CartItem cartItem=new CartItem();
             cartItem.setNumber(number);
             Product product = productMapper.queryById(productId);

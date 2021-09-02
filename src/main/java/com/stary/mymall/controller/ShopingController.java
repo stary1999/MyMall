@@ -32,7 +32,6 @@ public class ShopingController {
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             String cookieName = cookie.getName();
-
             String cookieValue = cookie.getValue();
         }
         //todo 根据cookie获得用户Id
@@ -58,8 +57,9 @@ public class ShopingController {
 
         Cart cart = carService.queryToCar(userId);
 
+        request.setAttribute("cart",cart);
         System.out.println(cart);
-        return "";
+        return "mall/mall_cart";
     }
 
 

@@ -1,13 +1,28 @@
 <!doctype html>
-<html lang="en" class="fullscreen-bg">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<title>登录</title>
 	<meta charset="utf-8">
 
 	<!--导入头部文件和设置-->
-	<th:block th:replace="commons/commons::common_head"/>
-
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="/static/assets/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/static/assets/vendor/linearicons/style.css">
+	<link rel="stylesheet" href="/static/assets/vendor/chartist/css/chartist-custom.css">
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="/static/assets/css/main.css">
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" href="/static/assets/css/demo.css">
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<!-- ICONS -->
+	<link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/static/assets/img/favicon.png">
+</head>
 </head>
 
 <body>
@@ -20,9 +35,10 @@
 						<div class="content">
 							<div class="header">
 								<div class="logo text-center"><img src="/static/assets/img/logo-dark.png" alt="Klorofil Logo"></div>
-								<p class="lead">欢迎管理员登录</p>
+								<p class="lead">欢迎登录</p>
 							</div>
-							<form class="form-auth-small" action="/admin/login" method="post">
+							<p style="color: red;" th:text="${#request.getAttribute('msg')}" th:if="${#request.getAttribute('msg')}"></p>
+							<form class="form-auth-small" action="/login" method="post">
 								<div class="form-group">
 									<label for="username" class="control-label sr-only">Email</label>
 									<input type="text" class="form-control" id="username" name="username" placeholder="用户名">
@@ -37,7 +53,7 @@
 										<span>记住我</span>
 									</label>
 								</div>
-								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
 								<div class="bottom">
 									<span class="helper-text"><i class="fa fa-lock"></i> <a href="#">忘记密码?</a></span>
 								</div>
@@ -47,8 +63,9 @@
 					<div class="right">
 						<div class="overlay"></div>
 						<div class="content text">
-							<h1 class="heading">Free Bootstrap dashboard template</h1>
-							<p>by The Develovers</p>
+							<h1 class="heading">新一代电子商城</h1>
+							<a style="color: black" href="/register">没有账号?点此注册</a>
+
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -57,6 +74,27 @@
 		</div>
 	</div>
 	<!-- END WRAPPER -->
+
+	<!--底部版权信息 -->
+	<div class="clearfix" align="center"></div>
+	<footer align="center">
+		<div class="container-fluid">
+			<p class="copyright">Copyright &copy; 2021. stary .</p>
+		</div>
+	</footer>
+	<!--end 底部版权信息 -->
+
+	<!-- Javascript -->
+	<script src="/static/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="/static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/static/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="/static/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="/static/assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="/static/assets/scripts/klorofil-common.js"></script>
+
+	<script src="/static/assets/vendor/toastr/toastr.min.js"></script>
+	<!--end javascript-->
+
 </body>
 
 </html>

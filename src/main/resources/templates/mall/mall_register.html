@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>注册</title>
+	<meta charset="utf-8">
+
+	<!--导入头部文件和设置-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="/static/assets/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/static/assets/vendor/linearicons/style.css">
+	<link rel="stylesheet" href="/static/assets/vendor/chartist/css/chartist-custom.css">
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="/static/assets/css/main.css">
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" href="/static/assets/css/demo.css">
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<!-- ICONS -->
+	<link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/static/assets/img/favicon.png">
+
+
+	<script type="text/javascript">
+
+		function getNam() {
+
+			var username = $.trim($("#username").val());
+			// alert(username);
+			$.ajax({
+				type : 'get',
+				url : '/getUser/Name',
+				data : 'username='+username,
+				success : function(data) {
+					// alert("data=="+data)
+					if (data==true){
+						var msg=document.getElementById("msg");
+						msg.innerHTML="用户名可用";
+						msg.style.color="green";
+						//用户名可用
+					}
+					else {
+						var msg=document.getElementById("msg");
+						msg.innerHTML="用户名已被使用或不符合命名规则！";
+						msg.style.color="red";
+					}
+
+				},
+			});
+		};
+		function getPassword() {
+
+			var password1 =$.trim($("#password").val());
+			var password2 = $.trim($("#password2").val());
+			if (password1!=password2)
+				alert(password1+"不等于"+password2);
+			else{
+				return;
+			}
+
+		};
+
+		function getEmail() {
+
+			var email=$.trim($("#email").val());
+			$.ajax({
+				type : 'get',
+				url : '/getUser/Email',
+				data : 'email='+email,
+				success : function(data) {
+					// alert("data==" +data);
+
+					if (data==true){
+						var msg=document.getElementById("msg");
+						msg.innerHTML="邮箱可用！";
+						msg.style.color="green";
+						//用户名可用
+					}
+					else {
+						var msg=document.getElementById("msg");
+						msg.innerHTML="邮箱已被使用或不符合命名规则！";
+						msg.style.color="red";
+					}
+
+				},
+			});
+		};
+
+	</script>
+
+
+
+
+</head>
+</head>
+
+<body>
+	<!-- WRAPPER -->
+	<div id="wrapper">
+		<div class="vertical-align-wrap">
+			<div class="vertical-align-middle">
+				<div class="auth-box ">
+					<div class="left">
+						<div class="content">
+							<div class="header">
+								<div class="logo text-center"><img src="/static/assets/img/logo-dark.png" alt="Klorofil Logo"></div>
+								<p class="lead">欢迎注册</p>
+							</div>
+							<p style="color: red;" th:text="${#request.getAttribute('msg')}" th:if="${#request.getAttribute('msg')}"></p>
+
+							<p style="color: red;" id="msg"></p>
+							<form class="form-auth-small" action="/register" method="post">
+
+								<!--用户名-->
+								<div class="form-group">
+									<label for="username" class="control-label sr-only" >username</label>
+									<input type="text" class="form-control" id="username" onblur="getNam()" name="username" placeholder="用户名">
+								</div>
+								<!--//密码-->
+								<div class="form-group">
+									<label for="password" class="control-label sr-only">password</label>
+									<input type="password" class="form-control" id="password" name="password" placeholder="密码">
+								</div>
+								<!--确认密码-->
+								<div class="form-group">
+									<label for="password2" class="control-label sr-only">password2</label>
+									<input type="password" class="form-control" id="password2" onblur="getPassword()"  placeholder="确认密码">
+								</div>
+								<!--邮箱-->
+								<div class="form-group">
+									<label for="email" class="control-label sr-only">邮箱</label>
+									<input type="email" class="form-control" id="email" onblur="getEmail()" name="email"  placeholder="邮箱">
+								</div>
+
+								<!--邮箱-->
+								<div class="form-group">
+									<label for="code" class="control-label sr-only">验证码</label>
+									<input type="text" class="form-control" id="code" onblur="getCode()" name="code"  placeholder="验证码">
+								</div>
+								<!--todo 验证码-->
+
+								<button type="submit" class="btn btn-primary btn-lg btn-block" >注册</button>
+
+							</form>
+
+
+						</div>
+					</div>
+					<div class="right">
+						<div class="overlay"></div>
+						<div class="content text">
+							<h1 class="heading">新一代电子商城</h1>
+							<a style="color: black" href="/login">已有账号?点此登录</a>
+							
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END WRAPPER -->
+
+	<!--底部版权信息 -->
+	<div class="clearfix" align="center">
+		<footer th:align="center">
+			<div class="container-fluid">
+				<p class="copyright">Copyright &copy; 2021. stary .</p>
+			</div>
+		</footer>
+	</div>
+
+	<!--end 底部版权信息 -->
+
+	<!-- Javascript -->
+	<script src="/static/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="/static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/static/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="/static/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="/static/assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="/static/assets/scripts/klorofil-common.js"></script>
+
+	<script src="/static/assets/vendor/toastr/toastr.min.js"></script>
+	<!--end javascript-->
+
+</body>
+
+</html>

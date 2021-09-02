@@ -2,10 +2,13 @@ package com.stary.mymall.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.stary.mymall.utils.BackJson;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,27 +25,94 @@ import java.util.Map;
 public class UserController {
 
 
-    @RequestMapping("/login")
-    public String userLogin(){
-        return "User/login";
+    @GetMapping("/login")
+    public String getLogin(){
+        return "mall/mall_login";
+    }
+
+    @PostMapping("/login")
+    public String userLogin(HttpSession session,
+                            HttpServletRequest request,
+                            @RequestParam(value = "username") String username,
+                            @RequestParam(value = "password") String password,
+                            @RequestParam(value = "remember",required = false) String remember
+//                            @RequestParam(value = "code") String code
+                            ){
+
+        //todo 账号校验
+        if (username.equals("admin")&&password.equals("123")){
+            //登录成功，防止表单重复提交，可以重定向到主页
+            session.setAttribute("loginUser",username);
+            Integer userId=Integer.valueOf("0005");
+            session.setAttribute("loginUserId",userId);
+            return "redirect:/index";
+        }
+        else {
+            //登录失败
+//            map.put("msg","用户名或密码错误");
+            String msg="账号或密码错误";
+            request.setAttribute("msg",msg);
+            return "mall/mall_login";
+        }
 
     }
 
-    @RequestMapping("/loginUser")
-    public String loginUser(){
-        //todo
 
-        return "index";
+    @GetMapping("/register")
+    public String getRegister(){
+        return "mall/mall_register";
     }
 
-    @RequestMapping("/register")
-    public void register(HttpServletResponse response) throws IOException {
-        JSONObject jsonObject= new JSONObject();
-        Map<String,String> map=new HashMap<>();
-        map.put("phone","1223456");
-        map.put("status","ok");
-        System.out.println("map");
-        BackJson.backJson(response,map);
+    @GetMapping("/getUser/Name")
+    @ResponseBody
+    public Boolean getName(@RequestParam(value = "username") String username){
+        //数据库查询
+
+        System.out.println("username==="+username);
+        if (username.equals("admin")){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    @GetMapping("/getUser/Email")
+    @ResponseBody
+    public Boolean getEmail(@RequestParam(value = "email") String email){
+        //数据库查询
+        System.out.println("email==="+email);
+        if (email.equals("aa@aa.aa")){
+            return false;
+        }
+        else {
+             return true;
+        }
+    }
+
+
+    @PostMapping("/register")
+    public String register(HttpServletRequest request,
+                           @RequestParam(value = "username") String username,
+                           @RequestParam(value = "password") String password,
+                           @RequestParam(value = "email") String email
+
+    ) throws IOException {
+
+
+        System.out.println("username="+username+"  "+password+"  "+email);
+        //todo 判断数据库
+//        添加数据库
+//        JSONObject jsonObject= new JSONObject();
+//        Map<String,String> map=new HashMap<>();
+//        map.put("phone","1223456");
+//        map.put("status","ok");
+//        System.out.println("map");
+//        BackJson.backJson(response,map);
+
+
+        String msg="注册成功！";
+        request.setAttribute("msg",msg);
+        return "mall/mall_register";
 
         //
     }
