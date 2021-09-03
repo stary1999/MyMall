@@ -9,6 +9,7 @@ import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,17 +39,33 @@ public class UserController {
     @PostMapping("/login")
     public String userLogin(HttpSession session,
                             HttpServletRequest request,
+                            HttpServletResponse response,
                             @RequestParam(value = "username") String username,
                             @RequestParam(value = "password") String password,
-                            @RequestParam(value = "remember",required = false) String remember
+                            @RequestParam(value = "remember",required = false,defaultValue = "false") String remember
 //                            @RequestParam(value = "code") String code
                             ){
 
-        //todo 账号校验
+
+        //账号校验
+        System.out.println("user==="+username+"  "+password);
         Boolean login = userService.login(username, password);
         if (login){
             User user = userService.getUser(username);
             //登录成功，防止表单重复提交，可以重定向到主页
+            if (remember.equals("true")){
+//                创建登录用户名Cookie
+                Cookie cook_name=new Cookie("username",username);
+                //创建登录用户密码Cookie
+                Cookie cook_pwd=new Cookie("password",password);
+                //设置过期时间为**秒
+                cook_name.setMaxAge(60*60*24);
+                cook_pwd.setMaxAge(60*60*24);
+                //将Cookie写入客户端
+                response.setHeader("Access-Control-Allow-Credentials", "true");
+                response.addCookie(cook_name);
+                response.addCookie(cook_pwd);
+            }
             session.setAttribute("loginUser",user);
             session.setAttribute("username",username);
             if (!user.getUserAdmin().equals(0)){
@@ -65,6 +82,14 @@ public class UserController {
             request.setAttribute("msg",msg);
             return "mall/mall_login";
         }
+
+    }
+
+    @RequestMapping("/loginOut")
+    public String getLoginOut(HttpSession session){
+        session.removeAttribute("loginUser");
+        session.removeAttribute("username");
+        return "redirect:/index";
 
     }
 
@@ -131,26 +156,3 @@ public class UserController {
 
     }
 }
-
-
-//@Controller
-//@RequestMapping("/login")
-//public class TestController {
-//    @RequestMapping("/test")
-//    public void test(HttpServletResponse response) throws IOException {
-//        SysUser sysUser=new SysUser();
-//        sysUser.setLoginPass("123456");
-//        sysUser.setLoginAccount("小明");
-//        System.out.println("dskfjdsfssdfdsfklkdfdsf");
-//        JSONObject jsonObject= (JSONObject) JSONObject.toJSON(sysUser);
-//        Map<String,String> map=new HashMap<>();
-//        map.put("phone","1223456");
-//        map.put("status","ok");
-//        jsonObject.put("info",map);
-//        response.setContentType("text/html;charset=utf-8");
-//        response.getWriter().write(jsonObject.toJSONString());
-//    }
-//}
-//结果如下：
-//{"loginAccount":"小明","roles":[],"loginPass":"123456","info":{"phone":"1223456","status":"ok"}}
-
