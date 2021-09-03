@@ -50,6 +50,7 @@ public class UserController {
             User user = userService.getUser(username);
             //登录成功，防止表单重复提交，可以重定向到主页
             session.setAttribute("loginUser",user);
+            session.setAttribute("username",username);
             if (!user.getUserAdmin().equals(0)){
                 return "redirect:/admin/index";
             }else {
