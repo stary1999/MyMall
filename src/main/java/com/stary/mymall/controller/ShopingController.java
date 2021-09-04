@@ -1,19 +1,21 @@
 package com.stary.mymall.controller;
 
 import com.stary.mymall.entity.Cart;
+import com.stary.mymall.entity.CartItem;
 import com.stary.mymall.entity.Product;
 import com.stary.mymall.entity.User;
 import com.stary.mymall.service.CarService;
 import com.stary.mymall.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,10 +66,34 @@ public class ShopingController {
         String userId = String.valueOf(loginUser.getUserId());
 
         Cart cart = carService.queryToCar(userId);
+        Map<Integer, CartItem> itemMap = cart.getItemMap();
+
+//        //将itemMap的value转化为list
+//        Collection<CartItem> values = itemMap.values();
+//        List<Product> valueList = new ArrayList<Product>(values);
+
+
+        request.setAttribute("items",itemMap);
 
         request.setAttribute("cart", cart);
+
         System.out.println(cart);
         return "mall/mall_cart";
+    }
+    @GetMapping("/getOrder")
+    public String getOrder(){
+
+        return "mall/mall_order";
+    }
+    @PostMapping("/getOrder")
+    @ResponseBody
+    public String getOrderController(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        User user = (User)session.getAttribute("loginUser");
+        Integer userId = user.getUserId();
+        //调用
+        return " ";
     }
 
 

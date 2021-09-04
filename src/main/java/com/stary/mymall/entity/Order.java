@@ -3,6 +3,7 @@ package com.stary.mymall.entity;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author stary
@@ -16,6 +17,6 @@ public class Order {
     private String orderId;
     private String userId;
     private BigDecimal totalPrice;
-    private Cart cart;
+    private List<OrderItem> list;
     private String state;
 }
