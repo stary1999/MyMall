@@ -2,9 +2,91 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>购物车</title>
+   <!--导入头部文件-->
+    <th:block th:replace="commons/usercomm::common_head"></th:block>
+    <!--导入js-->
+    <th:block th:replace="commons/usercomm::common_javascript"></th:block>
+
 </head>
 <body>
+<!--导入上方导航栏-->
+<div th:replace="commons/usercomm::common_navbar"></div>
+
+<!--编写此页面主要内容-->
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <h3 class="page-title">购物车</h3>
+
+            <div class="panel-body">
+
+                <!--message-->
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>种类</th>
+                            <th>描述</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th>总价</th>
+                            <th>图片</th>
+                            <th colspan="2">操作</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item,product:${#request.getAttribute('cart').itemMap}">
+
+                            <td>[[${product.productName}]]</td>
+                            <td>[[${product.productSort}]]</td>
+
+                            <td>[[${product.productDescript}]]</td>
+                            <td>[[${product.productPrice}]]</td>
+                            <td>[[${product.productStock}]]</td>
+                            <td><a th:href="${product.productImgPath}">点击查看</a></td>
+                            <th>
+                                <a th:href="'/admin/productsUpdate?productId='+${product.productId}">修改</a> &nbsp;
+                                <a th:href="'/admin/productsDelete?productId='+${product.productId}">删除</a>
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a href="#">结算</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <!--end message-->
+
+            </div>
+
+
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
+<!-- END MAIN -->
+
+<!--导入底部版权信息-->
+<div th:replace="commons/commons::common_footer_copyright"></div>
 
 </body>
 </html>
