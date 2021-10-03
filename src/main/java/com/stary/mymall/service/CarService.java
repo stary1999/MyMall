@@ -14,6 +14,6 @@ import java.util.Map;
 public interface CarService{
     public Boolean addToCar(String userId, String productId);
     public Boolean reduceToCar(String userId,String productId);
-    public void deleteToCar(String userId);
+    public Boolean deleteToCar(String userId);
     public Cart queryToCar(String userId);
 }

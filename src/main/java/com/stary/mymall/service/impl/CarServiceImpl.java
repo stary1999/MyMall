@@ -97,8 +97,9 @@ public class CarServiceImpl implements CarService {
 
 
     //删除所有商品
-    public void deleteToCar(String userId){
+    public Boolean deleteToCar(String userId){
         redisUtil.del(userId);
+        return true;
     }
 
 

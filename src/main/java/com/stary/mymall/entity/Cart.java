@@ -21,6 +21,6 @@ public class Cart {
     private String userId;
     private Integer totalCount;
     private BigDecimal totalPrice;
-    private Map<Integer,CartItem> itemMap=new LinkedHashMap<Integer,CartItem>();
+    private Map<Integer,CartItem> itemMap;
 
 }

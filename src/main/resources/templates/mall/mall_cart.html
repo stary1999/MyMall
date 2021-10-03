@@ -8,6 +8,14 @@
     <!--导入js-->
     <th:block th:replace="commons/usercomm::common_javascript"></th:block>
 
+
+    <!--    导入vue和axios-->
+    <script src="/static/js/axios.min.js"></script>
+    <script src="/static/js/vue.global.js"></script>
+
+
+
+
 </head>
 <body>
 <!--导入上方导航栏-->
@@ -15,11 +23,14 @@
 
 <!--编写此页面主要内容-->
 <!-- MAIN -->
-<div class="main">
+<div class="main" id="app">
     <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="container-fluid">
             <h3 class="page-title">购物车</h3>
+
+            <p style="color: red;" id="msg"></p>
+
 
             <div class="panel-body">
 
@@ -62,7 +73,11 @@
                             <td  th:text="'总数：'+${#request.getAttribute('cart').totalCount}"></td>
                             <td  th:text="'总价：'+${#request.getAttribute('cart').totalPrice}"></td>
                             <td colspan="2">
-                                <a href="#">结算</a>
+
+                                <button onclick="payMoney()">结算</button>
+
+
+
                             </td>
                         </tr>
 
@@ -85,6 +100,50 @@
 
 <!--导入底部版权信息-->
 <div th:replace="commons/commons::common_footer_copyright"></div>
+
+<script type="text/javascript">
+
+    function payMoney (){
+        $.ajax({
+            type: 'get',
+            url: '/addToOrder',
+            success: function (data) {
+                // alert("data==" +data);
+
+                if (data == true) {
+                    var msg = document.getElementById("msg");
+                    msg.innerHTML = "结算成功！";
+                    msg.style.color = "green";
+                    alert("结算成功！三秒后跳转");
+                    setTimeout(go,3000);
+
+                    $(location).attr("/getOrder");
+
+                    //用户名可用
+                } else if (data = false) {
+                    var msg = document.getElementById("msg");
+                    msg.innerHTML = "结算失败！";
+                    msg.style.color = "red";
+                }
+                else {
+                    var msg = document.getElementById("msg");
+                    msg.innerHTML = "结算失败，请先登录！";
+                    msg.style.color = "red";
+                }
+
+            },
+
+        });
+
+        function go(){
+            location.href="/index";
+        }
+
+
+    }
+
+
+</script>
 
 </body>
 </html>

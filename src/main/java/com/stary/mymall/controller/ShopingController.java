@@ -1,22 +1,22 @@
 package com.stary.mymall.controller;
 
-import com.stary.mymall.entity.Cart;
-import com.stary.mymall.entity.CartItem;
-import com.stary.mymall.entity.Product;
-import com.stary.mymall.entity.User;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.stary.mymall.entity.*;
 import com.stary.mymall.service.CarService;
+import com.stary.mymall.service.OrderService;
 import com.stary.mymall.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author stary
@@ -29,6 +29,9 @@ import java.util.Map;
 public class ShopingController {
     @Autowired
     private CarService carService;
+
+    @Autowired
+    private OrderService orderService;
 
 
     @RequestMapping("addToCart")
@@ -80,21 +83,81 @@ public class ShopingController {
         System.out.println(cart);
         return "mall/mall_cart";
     }
+
+    @ResponseBody
+    @RequestMapping("addToOrder")
+    public Boolean addToOrder(HttpServletRequest request){
+
+        //获取购物车数据
+        HttpSession session = request.getSession();
+        User loginUser = (User) session.getAttribute("loginUser");
+        //根据session获得用户Id
+        String userId = String.valueOf(loginUser.getUserId());
+        Cart cart = carService.queryToCar(userId);
+
+        //根据购物车数据构建order对象
+        Order order=new Order();
+        //获取时间戳
+        SimpleDateFormat dfOrderId = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+        SimpleDateFormat dfOrderDate = new SimpleDateFormat("MM月dd日HH时mm分");//设置日期格式
+
+        String date1 = dfOrderId.format(new Date());
+        String date2=dfOrderDate.format(new Date());
+        String orderId=date1+userId;
+        order.setOrderId(orderId);
+        order.setUserId(userId);
+        order.setOrderTime(date2);
+        order.setOrderStatus("0");
+        order.setOrderTotalPrice(cart.getTotalPrice());
+        List<OrderItem> orderItemList=new ArrayList<>();
+        for (Map.Entry<Integer, CartItem> cartItem:cart.getItemMap().entrySet()){
+            Integer number = cartItem.getValue().getNumber();
+            String productId =String.valueOf(cartItem.getValue().getProduct().getProductId()) ;
+            BigDecimal productPrice = cartItem.getValue().getProduct().getProductPrice();
+
+            OrderItem orderItem=new OrderItem(orderId,productId,productPrice,number);
+            orderItemList.add(orderItem);
+
+
+        }
+        order.setOrderItemList(orderItemList);
+
+        //添加订单
+        Boolean aBoolean = orderService.addToOrder(order);
+
+
+        //清空购物车
+        Boolean aBoolean1 = carService.deleteToCar(userId);
+
+
+
+        return aBoolean1&&aBoolean;
+    }
+
+
     @GetMapping("/getOrder")
-    public String getOrder(){
+    public String getOrderController(){
 
         return "mall/mall_order";
     }
-    @PostMapping("/getOrder")
+    @GetMapping("/getOrders")
     @ResponseBody
-    public String getOrderController(HttpServletRequest request){
+    public String getOrders(HttpServletRequest request){
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
         User user = (User)session.getAttribute("loginUser");
-        Integer userId = user.getUserId();
+        String userId =String.valueOf(user.getUserId()) ;
         //调用
-        return " ";
+        List<Order> orders = orderService.queryOrderByUser(userId);
+
+        JSONArray jsonArray=new JSONArray();
+        jsonArray.add(orders);
+
+        String s=jsonArray.toString();
+        String newString=jsonArray.toString().substring(1,s.length()-1);
+        return newString;
     }
+
+
 
 
 }

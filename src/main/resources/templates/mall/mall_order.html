@@ -2,24 +2,126 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>购物车</title>
-   <!--导入头部文件-->
-    <th:block th:replace="commons/usercomm::common_head"></th:block>
+    <title>我的订单</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="/static/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/assets/vendor/linearicons/style.css">
+    <link rel="stylesheet" href="/static/assets/vendor/chartist/css/chartist-custom.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="/static/assets/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="/static/assets/css/demo.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/static/assets/img/favicon.png">
+
     <!--导入js-->
-    <th:block th:replace="commons/usercomm::common_javascript"></th:block>
+
+    <!-- Javascript -->
+    <script src="/static/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/static/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+    <script src="/static/assets/vendor/chartist/js/chartist.min.js"></script>
+    <script src="/static/assets/scripts/klorofil-common.js"></script>
+
+    <script src="/static/assets/vendor/toastr/toastr.min.js"></script>
+    <!--end javascript-->
+
+<!--    导入vue和axios-->
+    <script src="/static/js/axios.min.js"></script>
+    <script src="/static/js/vue.global.js"></script>
+
 
 </head>
 <body>
 <!--导入上方导航栏-->
-<div th:replace="commons/usercomm::common_navbar"></div>
+<nav class="navbar navbar-default navbar-fixed-top" style="position: sticky;">
+
+    <div class="brand">
+        <a href="/index">
+            <img src="/static/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo">
+        </a>
+    </div>
+    <div class="container-fluid">
+
+        <!--商城主页-->
+        <div class="navbar-btn navbar-btn-left">
+            <a class="btn btn-success update-pro" href="/getCar" title="购物车" target="_blank"><i
+                    class="fa"></i> <span>购物车</span></a>
+        </div>
+
+
+        <div id="navbar-menu">
+            <ul class="nav navbar-nav navbar-right">
+
+
+                <!--帮助-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="lnr lnr-question-circle"></i>
+                        <span>分类</span>
+                        <i class="icon-submenu lnr lnr-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/index">全部</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="'/index?sort=数码'">数码</a></li>
+                        <li><a th:href="'/index?sort=百货'">百货</a></li>
+                        <li><a th:href="'/index?sort=生鲜'">生鲜</a></li>
+                        <li><a th:href="'/index?sort=服饰'">服饰</a></li>
+                        <li><a th:href="'/index?sort=其他'">其他</a></li>
+
+                    </ul>
+                </li>
+
+
+                <!--						用户-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="/static/assets/img/user.png" class="img-circle" alt="Avatar">
+                        <span th:if="!${#request.getSession().getAttribute('username')}">
+                                    登录
+                                </span>
+                        <span th:if="${#request.getSession().getAttribute('username')}"
+                              th:text="${#request.getSession().getAttribute('username')}">
+
+                                </span>
+                        <i class="icon-submenu lnr lnr-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="/login"><i class="lnr lnr-user"></i> <span>登录</span></a></li>
+
+                        <li><a href="/getOrder"><i class="lnr lnr-user"></i> <span>我的订单</span></a></li>
+                        <li><a href="#"><i class="lnr lnr-cog"></i> <span>设置</span></a></li>
+                        <li><a href="/loginOut"><i class="lnr lnr-exit"></i> <span>登出</span></a></li>
+
+                    </ul>
+                </li>
+                <!-- <li>
+                    <a class="update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
 
 <!--编写此页面主要内容-->
 <!-- MAIN -->
-<div class="main">
+<div class="main" id="app">
     <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="container-fluid">
-            <h3 class="page-title">购物车</h3>
+            <h3 class="page-title">我的订单</h3>
 
             <div class="panel-body">
 
@@ -30,41 +132,46 @@
                         <thead>
                         <tr>
 
-                            <th>名称</th>
-                            <th>描述</th>
-                            <th>单价</th>
-                            <th>数量</th>
-                            <th>总价 </th>
+                            <th>订单号</th>
+                            <th>下单时间</th>
+                            <th>金额</th>
+                            <th>查看详情</th>
+                            <th>状态 </th>
 
-                            <th colspan="2">操作</th>
+                            <th>操作</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="products:${#request.getAttribute('items')}">
 
-                            <td th:text="${products.value.product.productName}"></td>
-                            <td th:text="${products.value.product.productDescript}"></td>
-                            <td th:text="${products.value.product.productPrice}"></td>
-                            <td th:text="${products.value.number}"></td>
-                            <td th:text="${products.value.totalPrice}"></td>
-                            <td>
-                                <a href="#">-</a>
-                            </td>
-                            <td>
-                                <a href="#">+</a>
-                            </td>
+                            <tr v-for="item in info">
+                                <th>{{item.orderId}}</th>
+                                <th>{{item.orderTime}}</th>
+                                <th>{{item.orderTotalPrice}}</th>
+                                <th>查看详情</th>
+
+                                <th>
+                                    <p v-if="item.orderStatus=='0'">
+                                        待发货
+                                    </p>
+                                    <p v-else-if="item.orderStatus=='1'">
+                                        待收货
+                                    </p>
+                                    <p v-else-if="item.orderStatus=='2'">
+                                        待评价
+                                    </p>
+
+                                </th>
 
 
-                        </tr>
-                        <tr>
-                            <td colspan="3"></td>
-                            <td  th:text="'总数：'+${#request.getAttribute('cart').totalCount}"></td>
-                            <td  th:text="'总价：'+${#request.getAttribute('cart').totalPrice}"></td>
-                            <td colspan="2">
-                                <a href="#">结算</a>
-                            </td>
-                        </tr>
+                                <th>确认收货</th>
+
+
+
+                            </tr>
+
+
+
 
                         </tbody>
                     </table>
@@ -73,6 +180,8 @@
 
 
                 <!--end message-->
+
+
 
             </div>
 
@@ -84,7 +193,37 @@
 <!-- END MAIN -->
 
 <!--导入底部版权信息-->
-<div th:replace="commons/commons::common_footer_copyright"></div>
+
+<!--底部版权信息 -->
+<div class="clearfix" align="center"></div>
+<footer th:align="center">
+    <div class="container-fluid">
+        <p class="copyright">Copyright &copy; 2021. stary .</p>
+    </div>
+</footer>
+<!--end 底部版权信息 -->
+<script>
+
+    const app = {
+        data() {
+            return {
+                info:''
+            }
+        },
+        mounted () {
+            axios
+                .get('/getOrders')
+                .then(response => (this.info = response.data))
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+        }
+    }
+
+    Vue.createApp(app).mount('#app')
+
+</script>
+
 
 </body>
 </html>

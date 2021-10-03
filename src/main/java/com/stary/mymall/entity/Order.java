@@ -15,8 +15,9 @@ import java.util.List;
 @Data
 public class Order {
     private String orderId;
+    private String orderTime;
     private String userId;
-    private BigDecimal totalPrice;
-    private List<OrderItem> list;
-    private String state;
+    private BigDecimal orderTotalPrice;
+    private String orderStatus;
+    private List<OrderItem> orderItemList;
 }

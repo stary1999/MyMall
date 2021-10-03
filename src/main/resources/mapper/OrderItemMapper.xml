@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stary.mymall.mapper.OrderItemMapper">
+
+
+    <select id="queryOrderItemByOrderId"  resultType="com.stary.mymall.entity.OrderItem" parameterType="string">
+        SELECT * FROM order_item_table where order_id=#{orderId}
+    </select>
+
+
+    <insert id="addOrderItem" parameterType="com.stary.mymall.entity.OrderItem">
+        insert into order_item_table(order_id,product_id,product_count,product_price)
+        values(#{orderId},#{productId},#{productCount},#{productPrice})
+    </insert>
+
+
+
+</mapper>
