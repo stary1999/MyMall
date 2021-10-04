@@ -21,6 +21,15 @@
         values(#{userName},#{userPassword},#{userEmail},#{userAdmin})
     </insert>
 
+    <select id="queryUserAll" resultType="com.stary.mymall.entity.User">
+        select * from user_table
+    </select>
+
+    <select id="queryUserAllForAdmin" resultType="com.stary.mymall.entity.User">
+        select * from user_table where user_admin >0
+    </select>
+
+
 <!--    <select id="selectPageVo" resultType="com.stary.mymall.entity.Product">-->
 <!--        SELECT * FROM product-->
 <!--    </select>-->

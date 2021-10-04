@@ -19,121 +19,100 @@
 
 		<!--编写此页面主要内容-->
 		<!-- MAIN -->
-		<div class="main">
+		<div class="main" id="app">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<h3 class="page-title">产品列表</h3>
-					<div id="toastr-demo" class="panel">
-						<div class="panel-body">
 
-							<!--message-->
+					<h3 class="page-title">管理员列表</h3>
 
-							<h2 class="sub-header">产品列表</h2>
+					<div class="panel-body">
 
-							<div class="table-responsive">
-								<table class="table table-striped">
-									<thead>
-									<tr>
-										<th>商品编号</th>
-										<th>商品名称</th>
-										<th>商品分类</th>
-										<th>商品价格</th>
-										<th>商品库存</th>
-										<th>商品描述</th>
-										<th>图片预览</th>
-										<th>操作</th>
+						<!--message-->
 
-									</tr>
-									</thead>
-									<tbody>
-									<tr th:each="product,productList:${pageInfo.records}">
-										<td>[[${product.productId}]]</td>
-										<td>[[${product.productName}]]</td>
-										<td>[[${product.productSort}]]</td>
-										<td>[[${product.productPrice}]]</td>
-										<td>[[${product.productDescript}]]</td>
-										<td>[[${product.productStock}]]</td>
-										<td>[[${product.productImgPath}]]</td>
-										<th>
-											<a th:href="'/admin/productsUpdata?id='+${product.productId}">修改</a> &nbsp;
-											<a th:href="'/admin/productsDelete?id='+${product.productId}">删除</a>
-										</th>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								<tr>
 
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td>
-											<a href="/admin/productsAdd">新增商品</a>
-										</td>
-									</tr>
-									</tbody>
-								</table>
+									<th>用户ID</th>
+									<th>用户名</th>
+									<th>密码</th>
+									<th>邮箱</th>
+									<th>用户权限</th>
+									<th>状态</th>
 
-							</div>
+									<th>操作</th>
+
+								</tr>
+								</thead>
+								<tbody>
+
+								<tr v-for="item in info">
+									<th>{{item.userId}}</th>
+									<th>{{item.userName}}</th>
+									<th>{{item.userPassword}}</th>
+									<th>{{item.userEmail}}</th>
 
 
-							<!--end message-->
+									<th>
+										<p v-if="item.userAdmin=='0'">
+											普通用户
+										</p>
+										<p v-else-if="item.userAdmin=='1'">
+											超级管理员
+										</p>
+										<p v-else-if="item.userAdmin=='2'">
+											商品管理员
+										</p>
+										<p v-else-if="item.userAdmin=='3'">
+											订单管理员
+										</p>
 
 
-							<!-- CONTEXTUAL -->
-							<h4>Context</h4>
-							<p class="demo-button">
-								<button type="button" class="btn btn-primary btn-toastr" data-context="info" data-message="This is general theme info" data-position="top-right">General Info</button>
-								<button type="button" class="btn btn-success btn-toastr" data-context="success" data-message="This is success info" data-position="top-right">Success Info</button>
-								<button type="button" class="btn btn-warning btn-toastr" data-context="warning" data-message="This is warning info" data-position="top-right">Warning Info</button>
-								<button type="button" class="btn btn-danger btn-toastr" data-context="error" data-message="This is error info" data-position="top-right">Error Info</button>
-							</p>
-							<!-- END CONTEXTUAL -->
-							<br>
-							<!-- POSITION -->
-							<h4>Position</h4>
-							<p class="demo-button">
-								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="bottom-right">Bottom Right</button>
-								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="bottom-left">Bottom Left</button>
-								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="top-left">Top Left</button>
-								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="top-right">Top Right</button>
-								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="top-full-width">Top Full Width</button>
-								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="bottom-full-width">Bottom Full Width</button>
-								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="top-center">Top Center</button>
-								<button type="button" class="btn btn-default btn-toastr" data-context="info" data-message="Hi, I'm here" data-position="bottom-center">Bottom Center</button>
-							</p>
-							<!-- END POSITION -->
-							<br>
-							<!-- CALLBACK -->
-							<h4>Callback</h4>
-							<p class="demo-button">
-								<button type="button" class="btn btn-default btn-toastr-callback" id="toastr-callback1" data-context="info" data-message="onShown and onHidden callback demo">onShown and onHidden</button>
-								<button type="button" class="btn btn-default btn-toastr-callback" id="toastr-callback2" data-context="info" data-message="Please click me">onclick</button>
-								<button type="button" class="btn btn-default btn-toastr-callback" id="toastr-callback3" data-context="info" data-message="Please click close button">onCloseClick</button>
-							</p>
-							<!-- END CALLBACK -->
+									</th>
 
-							<!--pagebar-->
-							<nav aria-label="Page navigation" align="center">
-								<ul class="pagination ">
-
-									<li>
-										<a th:href="'/admin/productsManager?pn=1'">首页</a>
-										<a th:href="'/admin/productsManager?pn='+${pageInfo.previous}" th:if="${pageInfo.isPrevious}">上一页</a>
-										<a>当前第 [[${pageInfo.current}]] 页，共 [[${pageInfo.pages}]] 页</a>
-										<a th:href="'/admin/productsManager?pn='+${pageInfo.next}" th:if="${pageInfo.isNext}">下一页</a>
-										<a th:href="'/admin/productsManager?pn='+${pageInfo.pages}">尾页</a>
-									</li>
+									<th>离线</th>
 
 
-								</ul>
-							</nav>
-							<!--end pagebar-->
+									<th >
+										<button @click="getProduct($item.orderId)">修改权限</button>
+
+
+									</th>
+
+
+								</tr>
+								<tr>
+
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>
+										<a href="/admin/productsAdd">添加用户</a>
+									</td>
+								</tr>
+
+
+								</tbody>
+
+
+							</table>
 
 						</div>
+
+
+						<!--end message-->
+
+
+
 					</div>
+
+
+
 				</div>
 			</div>
 			<!-- END MAIN CONTENT -->
@@ -147,6 +126,31 @@
 	<!-- END WRAPPER -->
 	<!--导入基础javascript文件-->
 	<div th:replace="commons/commons::common_javascript"></div>
+
+	<script>
+
+		const app = {
+			data() {
+				return {
+					info:''
+				}
+			},
+			mounted () {
+				axios
+						.get('/admin/getUserAdmin')
+						.then(response => (this.info = response.data))
+						.catch(function (error) { // 请求失败处理
+							console.log(error);
+						});
+			},
+			methods: {
+
+			}
+		}
+
+		Vue.createApp(app).mount('#app')
+
+	</script>
 
 </body>
 

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.stary.mymall.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author stary
  * @version 1.0
@@ -17,5 +19,7 @@ public interface UserMapper extends BaseMapper<User> {
     Boolean addUser(User user);
     User queryByEmail(String userMail);
     User queryByName(String userName);
+    List<User> queryUserAll();
+    List<User> queryUserAllForAdmin();
 
 }

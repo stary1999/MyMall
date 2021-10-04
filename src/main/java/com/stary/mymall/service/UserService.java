@@ -2,6 +2,8 @@ package com.stary.mymall.service;
 
 import com.stary.mymall.entity.User;
 
+import java.util.List;
+
 /**
  * @author stary
  * @version 1.0
@@ -19,4 +21,8 @@ public interface UserService {
     public Boolean getEmail(String email);
 
     public User getUser(String name);
+
+    List<User> getUserAll();
+    List<User> getUserAllForAdmin();
+
 }

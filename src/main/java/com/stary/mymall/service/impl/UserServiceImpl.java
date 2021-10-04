@@ -6,6 +6,8 @@ import com.stary.mymall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author stary
  * @version 1.0
@@ -65,5 +67,14 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public List<User> getUserAll() {
+        return userMapper.queryUserAll();
+    }
+
+    @Override
+    public List<User> getUserAllForAdmin() {
+        return userMapper.queryUserAllForAdmin();
+    }
 
 }

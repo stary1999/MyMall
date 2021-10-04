@@ -164,13 +164,14 @@
                                 </th>
 
 
-                                <th>确认收货</th>
+                                <th >
+                                    <button @click="getProduct($item.orderId)">确认收货</button>
 
+
+                                </th>
 
 
                             </tr>
-
-
 
 
                         </tbody>
@@ -217,6 +218,14 @@
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
                 });
+        },
+        methods: {
+
+            getProduct(orderId){
+                alert(orderId);
+
+
+            }
         }
     }
 
